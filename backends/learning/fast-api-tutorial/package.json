@@ -1,0 +1,18 @@
+{
+  "name": "fastapi-tutorial-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The FastAPI tutorial, translated to Express.",
+  "scripts": {
+    "start": "node tutorial/server.js",
+    "start:advanced": "node advanced/server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "better-sqlite3": "^12.4.1",
+    "multer": "^2.0.2",
+    "cookie-parser": "^1.4.7",
+    "zod": "^4.4.3",
+    "ws": "^8.18.3"
+  }
+}
