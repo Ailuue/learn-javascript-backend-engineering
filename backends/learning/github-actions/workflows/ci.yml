@@ -1,0 +1,49 @@
+# Example CI workflow for a Node repo. To use it, copy to .github/workflows/ci.yml.
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backends/**"
+      - "d-structs-algos/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+
+# Only the latest run per branch matters — cancel stale ones.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npx prettier --check .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # run all versions even if one fails — full compatibility picture
+      matrix:
+        node-version: ["20", "22", "24"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm # built-in npm cache keyed on package-lock.json
+      - run: npm ci
+      - run: npm test
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: coverage-${{ matrix.node-version }}
+          path: coverage/
+          retention-days: 7
