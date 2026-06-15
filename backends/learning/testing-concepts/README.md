@@ -1,0 +1,47 @@
+# Testing (Jest)
+
+Writing tests is as important as writing the code. A good suite lets you refactor
+with confidence, catch regressions before they ship, and document behaviour in
+executable form.
+
+**Jest** is the testing framework for this repo (it already runs the backends and
+d-structs-algos suites). This module covers the testing concepts a backend
+engineer reaches for daily.
+
+## What the sections cover
+
+| Section | What it teaches |
+|---|---|
+| `01_jest_basics/` | `test`/`describe`, matchers, `toThrow`, `toBeCloseTo`, setup/teardown, `test.each`, skip/`test.failing` |
+| `02_mocking/` | `jest.mock`, `jest.fn`, `mockResolvedValue`, `mockImplementation`, `jest.spyOn`, fake timers |
+| `03_database_testing/` | SAVEPOINT rollback isolation, factory helpers, better-sqlite3 |
+| `04_async_testing/` | async tests, `.resolves`/`.rejects`, async mocks, async DB with rollback |
+
+## How to run
+
+```bash
+npm test                                          # whole repo
+npx jest backends/learning/testing-concepts                   # this module
+npx jest backends/learning/testing-concepts/02_mocking        # one section
+npx jest backends/learning/testing-concepts -t "slow"         # filter by test name
+```
+
+## pytest → Jest cheat sheet
+
+| pytest | Jest |
+|--------|------|
+| `assert x == y` | `expect(x).toBe(y)` / `.toEqual(y)` (deep) |
+| `pytest.raises(E)` | `expect(fn).toThrow()` |
+| `pytest.approx` | `.toBeCloseTo` |
+| fixtures | `beforeEach`/`beforeAll` + factory functions |
+| `@parametrize` | `test.each` (array or tagged-template table) |
+| `skip` / `skipif` | `test.skip` / `(cond ? test.skip : test)` |
+| `xfail` | `test.failing` |
+| `unittest.mock.patch` | `jest.mock(modulePath)` |
+| `MagicMock` | `jest.fn()` |
+| `return_value` / `side_effect` | `mockReturnValue` / `mockImplementation` / `mockRejectedValue` |
+| `patch.object` | `jest.spyOn(obj, "method")` |
+| `autospec` | TypeScript + `jest.mocked` (JS only checks method existence via `spyOn`) |
+| transaction-rollback fixture | `SAVEPOINT` / `ROLLBACK TO` in `beforeEach`/`afterEach` |
+| `pytest-asyncio` | built in — return/await the promise |
+| `AsyncMock` | `jest.fn().mockResolvedValue(...)` |
