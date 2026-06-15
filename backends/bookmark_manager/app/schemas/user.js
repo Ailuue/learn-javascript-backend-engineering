@@ -1,0 +1,16 @@
+// Zod schemas for users — the JS analog of schemas/user.py. Input keys stay
+// snake_case to match the JSON the API accepts.
+
+const { z } = require("zod");
+
+const userCreate = z.object({
+  email: z.string().email(),
+  username: z
+    .string()
+    .min(3)
+    .max(50)
+    .regex(/^[a-zA-Z0-9_-]+$/),
+  password: z.string().min(8).max(72),
+});
+
+module.exports = { userCreate };

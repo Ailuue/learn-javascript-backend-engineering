@@ -1,0 +1,91 @@
+class HashMap {
+  constructor(size) {
+    this.hashmap = new Array(size).fill(null);
+  }
+
+  insert(key, value) {
+    this.resize();
+    let index = this.keyToIndex(key);
+    const originalIndex = index;
+    let firstIteration = true;
+    let slot = this.hashmap[index];
+    while (slot !== null && slot[0] !== key) {
+      if (!firstIteration && index === originalIndex) {
+        throw new Error("hashmap is full");
+      }
+      index = (index + 1) % this.hashmap.length;
+      firstIteration = false;
+      slot = this.hashmap[index];
+    }
+    this.hashmap[index] = [key, value];
+  }
+
+  get(key) {
+    let index = this.keyToIndex(key);
+    const originalIndex = index;
+    let firstIteration = true;
+    let slot = this.hashmap[index];
+    while (slot !== null) {
+      if (slot[0] === key) {
+        return slot[1];
+      }
+      if (!firstIteration && index === originalIndex) {
+        throw new Error("hashmap is full");
+      }
+      index = (index + 1) % this.hashmap.length;
+      firstIteration = false;
+      slot = this.hashmap[index];
+    }
+    throw new Error("sorry, key not found");
+  }
+
+  resize() {
+    if (this.hashmap.length === 0) {
+      this.hashmap = [null];
+      return;
+    }
+    const load = this.currentLoad();
+    if (load >= 0.7) {
+      const oldEntries = this.hashmap.filter((pair) => pair !== null);
+      this.hashmap = new Array(2 * this.hashmap.length).fill(null);
+      for (const [key, value] of oldEntries) {
+        this.insert(key, value);
+      }
+    }
+  }
+
+  currentLoad() {
+    if (this.hashmap.length === 0) {
+      return 1;
+    }
+    let filled = 0;
+    for (const pair of this.hashmap) {
+      if (pair !== null) {
+        filled += 1;
+      }
+    }
+    return filled / this.hashmap.length;
+  }
+
+  // don't touch below this line
+
+  keyToIndex(key) {
+    let total = 0;
+    for (const c of key) {
+      total += c.charCodeAt(0);
+    }
+    return total % this.hashmap.length;
+  }
+
+  toString() {
+    let final = "";
+    for (const v of this.hashmap) {
+      if (v !== null) {
+        final += ` - ${v}\n`;
+      }
+    }
+    return final;
+  }
+}
+
+module.exports = { HashMap };

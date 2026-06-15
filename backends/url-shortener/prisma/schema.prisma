@@ -1,0 +1,40 @@
+// Prisma schema — the JS analog of the SQLAlchemy models in app/models.py.
+//
+// The Python original runs PostgreSQL in production and SQLite in tests. Prisma
+// pins the provider here, so we use SQLite to keep things self-contained. Swap
+// `provider` to "postgresql" and point DATABASE_URL at Postgres for production.
+//
+// The Python models use BigInteger ids; we use Int here so JSON responses stay
+// plain numbers (JS BigInt doesn't serialize to JSON natively).
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Url {
+  id          Int       @id @default(autoincrement())
+  shortCode   String    @unique @map("short_code")
+  originalUrl String    @map("original_url")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  expiresAt   DateTime? @map("expires_at")
+  clickCount  Int       @default(0) @map("click_count")
+  isActive    Boolean   @default(true) @map("is_active")
+
+  @@map("urls")
+}
+
+model User {
+  id             Int      @id @default(autoincrement())
+  username       String   @unique
+  hashedPassword String   @map("hashed_password")
+  createdAt      DateTime @default(now()) @map("created_at")
+  isActive       Boolean  @default(true) @map("is_active")
+
+  @@map("users")
+}

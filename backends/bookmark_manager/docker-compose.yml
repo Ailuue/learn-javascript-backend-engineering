@@ -1,0 +1,74 @@
+# Shared environment variables used by api and worker.
+# YAML anchors let us define once and merge (<<: *app-env) into each service.
+# In production, replace SECRET_KEY and POSTGRES_PASSWORD with real secrets, and
+# switch the Prisma datasource provider to "postgresql".
+x-app-env: &app-env
+  DATABASE_URL: postgresql://postgres:password@db:5432/bookmark_manager
+  REDIS_URL: redis://redis:6379/0
+  CELERY_BROKER_URL: redis://redis:6379/1
+  SECRET_KEY: change-me-in-production
+  ALGORITHM: HS256
+  ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+  ENVIRONMENT: development
+
+services:
+
+  # ── Infrastructure ────────────────────────────────────────────────────────
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bookmark_manager
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── Application ───────────────────────────────────────────────────────────
+
+  api:
+    build:
+      context: ../..
+      dockerfile: backends/bookmark_manager/Dockerfile
+    # Apply Prisma migrations first, then start the server.
+    command: sh -c "npx prisma migrate deploy --schema=prisma/schema.prisma && node app/server.js"
+    ports:
+      - "8002:8000" # matches API_URL = 'http://localhost:8002' in the frontend
+    environment:
+      <<: *app-env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # Combined worker + scheduler (BullMQ worker + repeatable flush job), the
+  # equivalent of the Celery worker and beat services.
+  worker:
+    build:
+      context: ../..
+      dockerfile: backends/bookmark_manager/Dockerfile
+    command: node app/worker.js
+    environment:
+      <<: *app-env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

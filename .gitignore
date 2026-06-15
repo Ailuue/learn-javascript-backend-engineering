@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+*.log
+
+# Generated Prisma clients
+**/app/generated/
+
+# Local SQLite databases
+*.db
+*.db-journal

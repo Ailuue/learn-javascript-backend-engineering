@@ -1,0 +1,63 @@
+const USER_NAMES = [
+  "Blake",
+  "Ricky",
+  "Shelley",
+  "Dave",
+  "George",
+  "John",
+  "James",
+  "Mitch",
+  "Williamson",
+  "Burry",
+  "Vennett",
+  "Shipley",
+  "Geller",
+  "Rickert",
+  "Carrell",
+  "Baum",
+  "Brownfield",
+  "Lippmann",
+  "Moses",
+];
+
+class User {
+  constructor(id) {
+    this.id = id;
+    this.userName = `${USER_NAMES[id % USER_NAMES.length]}#${id}`;
+  }
+
+  // Lets the tree compare users numerically by id (a < b, a > b).
+  valueOf() {
+    return this.id;
+  }
+
+  toString() {
+    return this.userName;
+  }
+}
+
+// Deterministic PRNG so test runs are reproducible (replaces Python's random.seed).
+function mulberry32(seed) {
+  return function () {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function getUsers(num) {
+  const rng = mulberry32(1);
+  const ids = [];
+  for (let i = 0; i < num * 3; i++) {
+    ids.push(i);
+  }
+  for (let i = ids.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [ids[i], ids[j]] = [ids[j], ids[i]];
+  }
+  return ids.slice(0, num).map((id) => new User(id));
+}
+
+module.exports = { User, getUsers };
