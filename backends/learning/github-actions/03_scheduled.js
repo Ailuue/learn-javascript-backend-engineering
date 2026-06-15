@@ -8,7 +8,7 @@ Scheduled Workflows — .github/workflows/scheduled.yml
 
   ┌ minute ┌ hour ┌ day-of-month ┌ month ┌ day-of-week (0=Sun)
   * * * * *
-  "0 9 * * 1"      Monday 09:00 UTC          "0 */6 * * *"  every 6 hours
+  "0 9 * * 1"      Monday 09:00 UTC          "0 0/6 * * *"  every 6 hours (a.k.a. star-slash-6)
   "30 2 * * *"     daily 02:30 UTC           "0 0 1 * *"    1st of month, midnight
 GitHub may delay scheduled runs up to ~15 min under load — not for time-critical
 jobs. Schedules run only on the default branch, and are disabled after 60 days of
