@@ -1,0 +1,73 @@
+# GraphQL Concepts (Node)
+
+Hands-on GraphQL practice using **graphql-js** + **@graphql-tools/schema**
+(schema-first) and **dataloader**. Each section is self-contained with a runnable
+schema, concept notes, and Jest tests.
+
+## Stack
+
+| | |
+|---|---|
+| Schema | [graphql-js](https://graphql.org/graphql-js/) + [@graphql-tools/schema](https://the-guild.dev/graphql/tools) — schema-first SDL + resolvers |
+| Batching | [`dataloader`](https://github.com/graphql/dataloader) |
+| Playground | Express + [`graphql-http`](https://github.com/graphql/graphql-http) + GraphiQL (see `app.js`) |
+| Testing | `graphqlSync` / `graphql` — no HTTP needed |
+
+## Code-first vs schema-first
+
+The Python version uses Strawberry (code-first: types from Python classes). The
+idiomatic JS choice here is **schema-first**: write the SDL string, then a
+parallel `resolvers` map, and combine with `makeExecutableSchema`. (Pothos is the
+popular code-first alternative if you prefer types-first.)
+
+## Sections
+
+| # | Folder | Key concepts |
+|---|--------|-------------|
+| 1 | `01_schema_basics/` | SDL, scalars, queries, mutations, input types |
+| 2 | `02_relationships/` | field resolvers, "private" fields, the N+1 problem |
+| 3 | `03_dataloaders/`   | `dataloader`, batching, per-request context |
+| 4 | `04_types/`         | enums, custom scalars (Date), interfaces, unions, `__resolveType` |
+| 5 | `05_mutations/`     | CRUD, partial updates, mutation-payload (typed-error union) |
+| 6 | `06_pagination/`    | offset pagination, Relay cursor pagination, PageInfo |
+
+Each section has `schema.js` (runnable schema), `notes.js` (concepts + queries),
+and `schema.test.js` (Jest tests). Sections 02/03/05/06 add a `data.js` store;
+03 adds `loaders.js`.
+
+## Run the tests
+
+```bash
+npm test                                  # whole repo
+npx jest backends/learning/graphql-concepts          # this module
+npx jest backends/learning/graphql-concepts/03       # one section
+```
+
+## Run the interactive playground
+
+```bash
+node backends/learning/graphql-concepts/app.js
+# open http://localhost:8000  (index)  or  http://localhost:8000/01/graphql
+```
+
+## GraphQL vs REST
+
+```
+REST:    GET /books/1 → server-decided { id, title, author, year, ... }
+GraphQL: { book(id:"1") { title year } } → client-decided { title, year }
+```
+
+No over-fetching, no under-fetching, multiple resources in one request.
+
+## Strawberry → JS cheat sheet
+
+| Strawberry (Python) | JS (schema-first) |
+|---------------------|-------------------|
+| `@strawberry.type` class | `type` in SDL + default field resolvers |
+| `@strawberry.field def x` | `resolvers.Type.x = (parent) => ...` |
+| `strawberry.Private[str]` | omit the field from SDL (keep it on the object) |
+| `strawberry.scalar(...)` | `new GraphQLScalarType({...})` |
+| `strawberry.union(...)` | `union` in SDL + `__resolveType` |
+| `strawberry.dataloader.DataLoader` | `new DataLoader(batchFn)` |
+| `schema.execute_sync()` | `graphqlSync({ schema, source })` |
+| `context_getter` | `graphql-http` `context` / `contextValue` |
