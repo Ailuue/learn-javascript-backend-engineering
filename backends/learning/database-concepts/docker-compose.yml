@@ -1,0 +1,13 @@
+# A plain Postgres for the pg-based folders (transactions, indexes, window_functions,
+# n_plus_one, full_text_search, normalization, async_sqlalchemy). Create the
+# per-folder database name from each folder's .env.example, or just reuse one db.
+# (pgvector-demo has its own compose with the pgvector image.)
+services:
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-postgres}
