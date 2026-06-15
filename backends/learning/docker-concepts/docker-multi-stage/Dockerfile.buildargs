@@ -1,0 +1,40 @@
+# =============================================================================
+# BUILD ARGS AND ENVIRONMENT VARIABLES
+#
+# Demonstrates ARG (build-time) and ENV (runtime) — related but very different.
+#
+# Build with defaults:   docker build -f Dockerfile.buildargs -t node-buildargs .
+# Build with args:       docker build -f Dockerfile.buildargs --build-arg PORT=9000 \
+#                          --build-arg APP_ENV=development -t node-buildargs .
+# Run with runtime env:  docker run -p 9000:9000 -e PORT=9000 node-buildargs
+# =============================================================================
+
+# syntax=docker/dockerfile:1
+FROM node:20-slim AS builder
+WORKDIR /app
+COPY app/package*.json ./
+RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev
+
+FROM node:20-slim
+
+# ARG — build-time only. Not present in the final image or running container.
+# Override with --build-arg. WARNING: ARG values appear in `docker history` in
+# plain text — never use ARG for secrets.
+ARG PORT=8000
+ARG APP_ENV=production
+
+# ENV — persists into the image and the running container. Can reference an ARG.
+# Override at runtime with: docker run -e PORT=9001 myimage
+ENV PORT=${PORT}
+ENV APP_ENV=${APP_ENV}
+ENV NODE_ENV=${APP_ENV}
+
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY app/ .
+
+EXPOSE ${PORT}
+
+# Shell form so ${PORT} is expanded at runtime (exec/JSON form does NOT expand
+# env vars). The PORT env is read by the app (server.js uses process.env.PORT).
+CMD node server.js

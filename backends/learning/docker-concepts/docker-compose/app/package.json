@@ -1,0 +1,9 @@
+{
+  "name": "docker-compose-app",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js", "test": "jest" },
+  "dependencies": { "express": "^5.2.1", "pg": "^8.13.1", "ioredis": "^5.11.1" },
+  "devDependencies": { "jest": "^30.0.0", "supertest": "^7.2.2" }
+}

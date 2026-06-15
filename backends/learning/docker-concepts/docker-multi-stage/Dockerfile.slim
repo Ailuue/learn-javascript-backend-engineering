@@ -1,0 +1,29 @@
+# =============================================================================
+# SINGLE-STAGE, SLIM BASE — intermediate between full and multi-stage
+#
+# Switching node:20 → node:20-slim alone drops ~900MB with no structural change.
+# node:20-slim is Debian with just the Node runtime — no build toolchain.
+#
+# Limitation: native addon packages (bcrypt, better-sqlite3, sharp) may need a
+# compiler at install time. Options: rely on prebuilt binaries, apt-get install
+# build tools (and clean up in the same RUN), or use multi-stage so the toolchain
+# stays in the builder.
+#
+# Build: docker build -f Dockerfile.slim -t node-slim .
+# =============================================================================
+
+FROM node:20-slim
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY app/package*.json ./
+RUN npm install --omit=dev
+
+# Adding and removing a large file in the SAME RUN keeps it out of the image:
+# the intermediate file is never committed to a layer. In two separate RUNs the
+# file would live in the first layer's snapshot even after deletion.
+RUN dd if=/dev/urandom of=/tmp/big bs=1M count=50 && rm /tmp/big
+
+COPY app/ .
+EXPOSE 8000
+CMD ["node", "server.js"]

@@ -1,0 +1,19 @@
+# =============================================================================
+# docker-compose.test.yml — test runner override
+#
+# Runs jest instead of the server. Merge explicitly with -f so the dev override
+# (hot reload) is NOT auto-applied — tests run against the built image:
+#   docker compose -f docker-compose.yml -f docker-compose.test.yml run --rm app
+#
+# `docker compose run` respects depends_on, so db and redis start (and pass
+# their health checks) before jest begins.
+# =============================================================================
+
+services:
+  app:
+    command: ["npm", "test"]
+    environment:
+      DOCKER_IT: "1" # un-skips the integration suite in app/tests/api.test.js
+    restart: "no"
+    healthcheck:
+      disable: true

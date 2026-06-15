@@ -1,0 +1,64 @@
+# =============================================================================
+# docker-compose.yml — base config (production-like)
+#
+# docker-compose.override.yml is auto-merged on `docker compose up` (dev extras).
+# Compose auto-loads .env and substitutes ${VAR} / ${VAR:-default}.
+# =============================================================================
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Reach other services by their SERVICE NAME as the hostname — "db", "redis",
+      # not "localhost" (inside a container, localhost is that container).
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379
+      APP_ENV: ${APP_ENV:-production}
+    healthcheck:
+      # node:20-slim has no curl; Node's global fetch is available instead.
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data            # named volume — data persists
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql   # runs once on first startup
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432" # dev convenience; drop in production (db should be internal-only)
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+  redis_data:

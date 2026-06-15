@@ -1,0 +1,33 @@
+# =============================================================================
+# Dockerfile.insecure — INTENTIONALLY BROKEN. DO NOT use in production.
+# Each [ISSUE N] matches a [FIX N] in Dockerfile. Compare the two.
+#   docker build -f Dockerfile.insecure -t app-insecure .
+#   docker run --rm app-insecure node -e "console.log(process.getuid())"   → 0 (root)
+#   docker history app-insecure | grep -i SECRET                            → value visible
+# =============================================================================
+
+# [ISSUE 1] Unpinned base — "node:20" moves over time; builds aren't reproducible.
+FROM node:20
+
+# [ISSUE 2] Secrets baked into the image. ARG values appear in `docker history`;
+# ENV values appear in `docker inspect` — readable by anyone with docker access.
+ARG DB_PASSWORD=supersecret123
+ENV DB_PASSWORD=${DB_PASSWORD}
+ENV API_KEY=hardcoded-api-key-do-not-ship
+
+# [ISSUE 3] Full base image — includes compilers, curl, git: a large attack surface.
+
+WORKDIR /app
+
+# [ISSUE 4] COPY . . copies everything: .env, secrets/, .git/. One missing
+# .dockerignore pattern leaks sensitive data into a layer permanently.
+COPY . .
+
+# [ISSUE 5] No cache strategy.
+RUN npm install --omit=dev --prefix app
+
+# [ISSUE 6] No USER — the container runs as root (uid 0). Code execution inside
+# the container then has root; on misconfigured hosts that can escape to the host.
+
+EXPOSE 8000
+CMD ["node", "app/server.js"]

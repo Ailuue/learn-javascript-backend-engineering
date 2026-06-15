@@ -1,0 +1,39 @@
+# =============================================================================
+# Hardened docker-compose.yml — runtime security controls on top of a secured
+# Dockerfile. Every option is commented.
+# =============================================================================
+
+services:
+  app:
+    build: .
+    # Bind to loopback only — "8000:8000" listens on all interfaces; the
+    # 127.0.0.1 prefix keeps it off the network. In prod, sit behind a proxy.
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      APP_ENV: production
+      # No sensitive values here — values under environment: show in docker inspect.
+    # Docker secrets — mounted at /run/secrets/<name>, NOT an env var.
+    secrets:
+      - app_secret_key
+    # Read-only root filesystem — blocks runtime writes (malware, tampering).
+    # tmpfs grants writable paths the app legitimately needs.
+    read_only: true
+    tmpfs:
+      - /tmp
+    # Block privilege escalation via setuid/setgid binaries.
+    security_opt:
+      - no-new-privileges:true
+    # Drop all Linux capabilities; a web server needs none. (Add NET_BIND_SERVICE
+    # only if binding a port < 1024.)
+    cap_drop:
+      - ALL
+    # Explicit non-root user (matches the Dockerfile USER) — defence in depth.
+    user: "1001:1001"
+    restart: unless-stopped
+
+# For non-Swarm Compose, secrets are read from a local file. In Swarm/Kubernetes
+# they come from the orchestrator's secret store.
+secrets:
+  app_secret_key:
+    file: ./secrets/app_secret_key.txt

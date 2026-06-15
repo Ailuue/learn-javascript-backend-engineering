@@ -1,0 +1,16 @@
+# =============================================================================
+# docker-compose.override.yml — dev overrides (auto-merged on `docker compose up`)
+#
+# Run WITHOUT it (production-like): docker compose -f docker-compose.yml up
+# =============================================================================
+
+services:
+  app:
+    # Bind mount: host ./app maps to /app in the container, so saved edits are
+    # visible instantly. Combined with `node --watch`, the server restarts on save.
+    volumes:
+      - ./app:/app
+      - /app/node_modules # keep the image's node_modules, don't shadow with the host's
+    command: ["node", "--watch", "server.js"]
+    environment:
+      APP_ENV: development

@@ -1,0 +1,29 @@
+# =============================================================================
+# ALPINE-BASED MULTI-STAGE — smallest base, with trade-offs
+#
+# Alpine Linux uses musl libc instead of glibc. Most native Node addons ship
+# prebuilt binaries for glibc; on Alpine they may fall back to compiling from
+# source, which needs build-base (gcc, make, python3). Pure-JS apps (like this
+# Express server) are unaffected — no compiler needed.
+#
+# Rule of thumb: use slim for apps with native addons (bcrypt, sharp,
+# better-sqlite3); alpine only when you're sure everything is pure JS.
+#
+# Build:   docker build -f Dockerfile.alpine -t node-alpine .
+# Compare: docker images | grep node-
+# =============================================================================
+
+FROM node:20-alpine AS builder
+WORKDIR /app
+# build-base would be added here ONLY if a native addon needs compiling:
+#   RUN apk add --no-cache build-base python3
+COPY package*.json ./
+RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev
+
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/node_modules ./node_modules
+COPY app/ .
+EXPOSE 8000
+CMD ["node", "server.js"]
