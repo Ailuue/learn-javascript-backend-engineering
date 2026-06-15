@@ -1,0 +1,82 @@
+# AWS Core Services with LocalStack (Node)
+
+Practice the core AWS services locally — no AWS account or billing — using the
+**AWS SDK for JavaScript v3** against [LocalStack](https://localstack.cloud),
+which emulates the AWS APIs on `http://localhost:4566`.
+
+## Services covered
+
+| Service | What it is |
+|---------|-----------|
+| S3 | Object storage — files, blobs, static assets |
+| DynamoDB | NoSQL key-value + document database |
+| SQS | Message queue — decouple services, buffer workloads |
+| SNS | Pub/sub — broadcast messages to multiple consumers |
+| Lambda | Serverless compute — run code in response to events |
+
+## SDK v3 style
+
+The v3 SDK is modular and command-based:
+
+```js
+const { S3Client, CreateBucketCommand } = require("@aws-sdk/client-s3");
+const s3 = new S3Client({ endpoint, region, credentials, forcePathStyle: true });
+await s3.send(new CreateBucketCommand({ Bucket: "my-bucket" }));
+```
+
+Shared client config lives in [helpers.js](helpers.js). Compared to Python's
+boto3 (`s3.create_bucket(...)`), you import each operation as a `Command` and
+`send` it — only the calls you use get bundled.
+
+## Setup
+
+```bash
+# 1. Start LocalStack
+docker compose up -d
+
+# 2. Install dependencies (from the repo root)
+npm install
+```
+
+## Running scripts
+
+Each script is self-contained — it sets up what it needs, demonstrates the
+concept, and cleans up. Run from the `aws-concepts/` directory:
+
+```bash
+node s3/01_buckets.js
+node dynamodb/02_crud.js
+node lambda/02_invoke.js
+# etc.
+```
+
+These are runnable demos (like the Python originals), not Jest tests — they need
+LocalStack running and aren't part of `npm test`.
+
+## What the folders cover
+
+| Folder | Files |
+|--------|-------|
+| `s3/` | Buckets, objects (upload/download/copy), presigned URLs |
+| `dynamodb/` | Tables, CRUD (raw client), queries (Document client) |
+| `sqs/` | Queues, messages + visibility timeout, dead letter queues |
+| `sns/` | Topics, publish, fan-out (SNS → multiple SQS queues) |
+| `lambda/` | Deploy a function, invoke it, trigger from S3 events |
+
+## boto3 → AWS SDK v3 cheat sheet
+
+| boto3 (Python) | AWS SDK v3 (JS) |
+|----------------|-----------------|
+| `client("s3")` | `new S3Client(config)` |
+| `s3.create_bucket(Bucket=x)` | `s3.send(new CreateBucketCommand({ Bucket: x }))` |
+| `resource("dynamodb").Table(t)` | `DynamoDBDocumentClient.from(client)` |
+| `generate_presigned_url(...)` | `getSignedUrl(client, command, { expiresIn })` |
+| `generate_presigned_post(...)` | `createPresignedPost(client, {...})` |
+| `Body.read()` | `await Body.transformToString()` |
+| `except db.exceptions.ConditionalCheckFailedException` | `if (err.name === "ConditionalCheckFailedException")` |
+
+## Community vs Pro
+
+The free Community tier covers everything here. Notable limits: IAM is a no-op
+(permissions aren't enforced); RDS/ECS/EKS/ElastiCache are Pro-only; Lambda needs
+the Docker socket (already mounted in the compose file).
