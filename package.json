@@ -19,6 +19,8 @@
     "supertest": "^7.2.2"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.14.4",
+    "@grpc/proto-loader": "^0.8.1",
     "@prisma/client": "^6.19.3",
     "bcryptjs": "^3.0.3",
     "bullmq": "^5.78.1",
