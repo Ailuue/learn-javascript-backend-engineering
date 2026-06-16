@@ -7,7 +7,7 @@ response to events — no servers to manage, paying only for run time.
 
 - **Function** — code with a handler (entry point), runtime, and memory/timeout config.
 - **Handler** — the entry point as `file.export`. For `handler.js` exporting
-  `handler`, it's `handler.handler` (boto3's was `handler.lambda_handler`).
+  `handler`, it's `handler.handler`.
 - **Event** — the input; its shape depends on the trigger (API Gateway, S3, SQS…).
 - **Context** — invocation metadata (function name, remaining time, request ID).
 - **Invocation types:**
