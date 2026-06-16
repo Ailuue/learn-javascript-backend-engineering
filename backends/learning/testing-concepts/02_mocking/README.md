@@ -5,9 +5,9 @@ databases, email, payment APIs, HTTP endpoints. **Mocking** replaces them with
 controlled fakes for the duration of a test.
 
 Core tools:
-- **`jest.mock(path)`** — auto-mock a whole module (Python's `patch`).
-- **`jest.fn()`** — a standalone mock function that records calls (MagicMock).
-- **`jest.spyOn(obj, "method")`** — wrap one real method (Python's `patch.object`).
+- **`jest.mock(path)`** — auto-mock a whole module.
+- **`jest.fn()`** — a standalone mock function that records calls.
+- **`jest.spyOn(obj, "method")`** — wrap one real method on an existing object.
 
 ## The golden rule
 
