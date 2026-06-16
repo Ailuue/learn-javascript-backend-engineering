@@ -34,12 +34,3 @@ node 01_cache_aside.js
 node 05_stampede.js
 ```
 
-## redis-py → ioredis cheat sheet
-
-| redis-py | ioredis |
-|----------|---------|
-| `r.setex(k, ttl, v)` | `client.set(k, v, "EX", ttl)` |
-| `r.set(k, v, nx=True, ex=t)` | `client.set(k, v, "EX", t, "NX")` |
-| `r.delete(k)` | `client.del(k)` |
-| `r.pipeline()` | `client.pipeline()....exec()` |
-| `r.rpush / lrange / ltrim` | same names, async |
