@@ -21,12 +21,3 @@ node 01_concepts.js         # standalone explainer
 node 02_github.js           # open http://localhost:8000
 ```
 
-## Authlib → Express
-
-| Python (Authlib) | JS |
-|------------------|-----|
-| `oauth.register(...)` | manual config + `fetch` token exchange |
-| `authorize_redirect` (stores state) | `crypto.randomBytes` state in `req.session` + redirect |
-| `authorize_access_token` (verifies state) | compare `req.query.state` to session, then `fetch` |
-| `SessionMiddleware` | `express-session` |
-| `request.session["user"]` | `req.session.user` |
