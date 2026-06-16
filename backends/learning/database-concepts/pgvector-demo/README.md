@@ -43,11 +43,3 @@ node embed_comments.js --model mxbai-embed-large   # different model
 Switching models changes the vector dimensions — update `vector(N)` in `setup.js`
 and re-embed.
 
-## Python → JS
-
-| Python | JS |
-|--------|-----|
-| `pgvector.sqlalchemy.Vector` | `vector(768)` column + `pgvector/pg` `registerTypes` |
-| `ollama.embed(...).embeddings[0]` | `new Ollama().embed(...)` then `.embeddings[0]` |
-| `Comment.embedding.cosine_distance(vec)` | `embedding <=> $1` with `pgvector.toSql(vec)` |
-| Alembic migration | raw `setup.js` (or Knex — see db-migration-demo) |
