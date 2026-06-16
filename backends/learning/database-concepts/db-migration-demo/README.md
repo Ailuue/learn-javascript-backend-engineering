@@ -1,7 +1,7 @@
 # Database Migration Demo
 
-Hands-on migration practice with **Knex** — the 2026 JS analog of Alembic:
-imperative migrations with explicit `up()`/`down()` and a CLI to apply and roll back.
+Hands-on migration practice with **Knex**: imperative migrations with explicit
+`up()`/`down()` and a CLI to apply and roll back.
 
 ## Domain
 
@@ -43,13 +43,3 @@ npx knex migrate:rollback                 # roll back the last batch
 npx knex migrate:status                   # which migrations have run
 ```
 
-## Alembic → Knex
-
-| Alembic | Knex |
-|---------|------|
-| `alembic revision -m "..."` | `knex migrate:make ...` |
-| `op.create_table(...)` / `op.add_column(...)` | `knex.schema.createTable / alterTable` |
-| `upgrade()` / `downgrade()` | `exports.up` / `exports.down` |
-| `alembic upgrade head` | `knex migrate:latest` |
-| `alembic downgrade -1` | `knex migrate:rollback` |
-| `alembic current` / `history` | `knex migrate:status` |
