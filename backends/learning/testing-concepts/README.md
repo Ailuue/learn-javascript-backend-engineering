@@ -26,22 +26,3 @@ npx jest backends/learning/testing-concepts/02_mocking        # one section
 npx jest backends/learning/testing-concepts -t "slow"         # filter by test name
 ```
 
-## pytest → Jest cheat sheet
-
-| pytest | Jest |
-|--------|------|
-| `assert x == y` | `expect(x).toBe(y)` / `.toEqual(y)` (deep) |
-| `pytest.raises(E)` | `expect(fn).toThrow()` |
-| `pytest.approx` | `.toBeCloseTo` |
-| fixtures | `beforeEach`/`beforeAll` + factory functions |
-| `@parametrize` | `test.each` (array or tagged-template table) |
-| `skip` / `skipif` | `test.skip` / `(cond ? test.skip : test)` |
-| `xfail` | `test.failing` |
-| `unittest.mock.patch` | `jest.mock(modulePath)` |
-| `MagicMock` | `jest.fn()` |
-| `return_value` / `side_effect` | `mockReturnValue` / `mockImplementation` / `mockRejectedValue` |
-| `patch.object` | `jest.spyOn(obj, "method")` |
-| `autospec` | TypeScript + `jest.mocked` (JS only checks method existence via `spyOn`) |
-| transaction-rollback fixture | `SAVEPOINT` / `ROLLBACK TO` in `beforeEach`/`afterEach` |
-| `pytest-asyncio` | built in — return/await the promise |
-| `AsyncMock` | `jest.fn().mockResolvedValue(...)` |
