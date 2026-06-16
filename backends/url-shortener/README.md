@@ -1,7 +1,6 @@
 # URL Shortener
 
 Express service that shortens URLs, tracks clicks, and redirects visitors.
-A JavaScript translation of the Python/FastAPI original.
 
 ## Features
 
@@ -30,13 +29,13 @@ A JavaScript translation of the Python/FastAPI original.
 app/
   main.js       — app factory; mounts routers (redirect last, it's a catch-all)
   server.js     — network entry point (listen + cache init)
-  worker.js     — BullMQ worker for click increments (Celery worker)
+  worker.js     — BullMQ worker for click increments
   database.js   — shared Prisma client
   models        — see prisma/schema.prisma
   schemas.js    — Zod request schemas + response serializers
   shortener.js  — slug generation logic
   cache.js      — Redis helpers
-  celery_app.js — BullMQ queue setup
+  queue.js      — BullMQ queue setup
   tasks.js      — click-increment task + enqueue helper
   auth.js       — hashing, JWT, and auth middleware
   errors.js     — HttpError + error-handling middleware
@@ -46,7 +45,7 @@ app/
     redirect.js — slug → redirect with click tracking
 prisma/
   schema.prisma — URL and user models
-  migrations/   — migration scripts (the Alembic analog)
+  migrations/   — migration scripts
 ```
 
 ## Setup
