@@ -2,8 +2,8 @@
 Release Workflow — .github/workflows/release.yml
 ==================================================
 
-(Release mechanics are language-agnostic; only the test step differs — npm test
-instead of pytest. See workflows/release.yml for a complete example.)
+(Release mechanics are language-agnostic; the test step here runs `npm test`.
+See workflows/release.yml for a complete example.)
 
 --- SEMANTIC VERSIONING ---
 
