@@ -18,9 +18,9 @@ Dockerfile fundamentals and the multi-stage build pattern that keeps production 
 | `Dockerfile.alpine` | Alpine-based variant (even smaller, but glibc trade-offs) |
 | `Dockerfile.slim` | Debian slim variant |
 | `Dockerfile.buildargs` | Using `ARG` and `ENV` to parameterize builds |
-| `notes.py` | Annotated notes on all concepts |
-| `notes_optimization.py` | Layer caching tips and size optimization strategies |
-| `app/` | Minimal FastAPI app used as the build target |
+| `notes.js` | Annotated notes on all concepts |
+| `notes_optimization.js` | Layer caching tips and size optimization strategies |
+| `app/` | minimal Express app used as the build target |
 
 ## Try it
 
@@ -35,16 +35,16 @@ docker images demo
 ## Why multi-stage?
 
 ```dockerfile
-# Stage 1: builder — has pip, build tools, etc.
-FROM python:3.12 AS builder
-COPY package.json .
-RUN pip install --prefix=/install -r package.json
+# Stage 1: builder — has the full toolchain for installing/compiling deps
+FROM node:22 AS builder
+COPY package*.json ./
+RUN npm ci
 
-# Stage 2: runtime — only the installed packages, not the build tools
-FROM python:3.12-slim
-COPY --from=builder /install /usr/local
+# Stage 2: runtime — only what's needed to run, not the build tools
+FROM node:22-slim
+COPY --from=builder /node_modules /node_modules
 COPY app/ app/
-CMD ["uvicorn", "app.main:app"]
+CMD ["node", "server.js"]
 ```
 
-The final image never contains pip, build headers, or intermediate files.
+The final image never contains build headers, dev dependencies, or intermediate files.
