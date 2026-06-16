@@ -1,8 +1,8 @@
 # Task Queues Deep Dive (BullMQ)
 
-Background job processing with [BullMQ](https://docs.bullmq.io) and Redis — the
-Node equivalent of Celery. Same ideas (producer → broker → worker), expressed the
-JavaScript way.
+Background job processing with [BullMQ](https://docs.bullmq.io) and Redis. The
+core shape is producer → broker → worker: enqueue jobs, a Redis broker holds
+them, and worker processes pull and run them.
 
 ## Architecture
 
@@ -22,9 +22,9 @@ Worker (processor function)
 Producer reads it via job.waitUntilFinished(queueEvents)
 ```
 
-Unlike Celery there is **no separate result backend** and **no separate beat
-process**: job state lives in the same Redis, and repeatable jobs are driven by
-Job Schedulers attached to the queue.
+There is **no separate result backend** and **no separate scheduler process**:
+job state lives in the same Redis, and repeatable jobs are driven by Job
+Schedulers attached to the queue.
 
 ## Setup
 
@@ -47,17 +47,3 @@ Each file is self-contained: it starts its own in-process worker, runs the demo,
 and cleans up — so a single `node <file>` shows the full round-trip (just keep
 Redis running).
 
-## Celery → BullMQ cheat sheet
-
-| Celery | BullMQ |
-|--------|--------|
-| `@app.task` + `add.delay(x, y)` | `queue.add("add", { x, y })` |
-| `apply_async(countdown=10)` | `queue.add(name, data, { delay: 10000 })` |
-| `AsyncResult.get()` | `job.waitUntilFinished(queueEvents)` |
-| `self.update_state(meta=…)` | `job.updateProgress(…)` |
-| `autoretry_for` / `self.retry()` | `{ attempts, backoff }` job options |
-| give up early | throw `UnrecoverableError` |
-| `chain(a, b, c)` | nested `FlowProducer` tree |
-| `group(a, b, c)` | add N jobs, `Promise.all(waitUntilFinished)` |
-| `chord(group, cb)` | flow: `cb` parent, group as children |
-| Celery Beat `beat_schedule` | `queue.upsertJobScheduler(id, repeat, tmpl)` |
