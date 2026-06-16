@@ -24,9 +24,9 @@ const s3 = new S3Client({ endpoint, region, credentials, forcePathStyle: true })
 await s3.send(new CreateBucketCommand({ Bucket: "my-bucket" }));
 ```
 
-Shared client config lives in [helpers.js](helpers.js). Compared to Python's
-boto3 (`s3.create_bucket(...)`), you import each operation as a `Command` and
-`send` it — only the calls you use get bundled.
+Shared client config lives in [helpers.js](helpers.js). The AWS SDK v3 is
+command-oriented: you import each operation as a `Command` and `send` it, so
+only the calls you actually use get bundled.
 
 ## Setup
 
@@ -50,8 +50,8 @@ node lambda/02_invoke.js
 # etc.
 ```
 
-These are runnable demos (like the Python originals), not Jest tests — they need
-LocalStack running and aren't part of `npm test`.
+These are runnable demos, not Jest tests — they need LocalStack running and
+aren't part of `npm test`.
 
 ## What the folders cover
 
@@ -62,18 +62,6 @@ LocalStack running and aren't part of `npm test`.
 | `sqs/` | Queues, messages + visibility timeout, dead letter queues |
 | `sns/` | Topics, publish, fan-out (SNS → multiple SQS queues) |
 | `lambda/` | Deploy a function, invoke it, trigger from S3 events |
-
-## boto3 → AWS SDK v3 cheat sheet
-
-| boto3 (Python) | AWS SDK v3 (JS) |
-|----------------|-----------------|
-| `client("s3")` | `new S3Client(config)` |
-| `s3.create_bucket(Bucket=x)` | `s3.send(new CreateBucketCommand({ Bucket: x }))` |
-| `resource("dynamodb").Table(t)` | `DynamoDBDocumentClient.from(client)` |
-| `generate_presigned_url(...)` | `getSignedUrl(client, command, { expiresIn })` |
-| `generate_presigned_post(...)` | `createPresignedPost(client, {...})` |
-| `Body.read()` | `await Body.transformToString()` |
-| `except db.exceptions.ConditionalCheckFailedException` | `if (err.name === "ConditionalCheckFailedException")` |
 
 ## Community vs Pro
 
