@@ -1,6 +1,6 @@
 # Reverse Proxy with nginx
 
-Put nginx in front of a FastAPI app using Docker Compose.
+Put nginx in front of a Express app using Docker Compose.
 
 ## Concepts
 
@@ -16,16 +16,16 @@ Put nginx in front of a FastAPI app using Docker Compose.
 |---|---|
 | `docker-compose.yml` | App + nginx services |
 | `nginx/` | nginx config files |
-| `app/` | FastAPI backend (only reachable via nginx) |
-| `notes_reverseproxy.py` | Annotated notes on all concepts |
+| `app/` | Express backend (only reachable via nginx) |
+| `notes_reverseproxy.js` | Annotated notes on all concepts |
 
 ## Try it
 
 ```bash
 docker compose up --build
 # nginx listens on port 80
-curl http://localhost/          # routed to FastAPI
-curl http://localhost/health    # routed to FastAPI health check
+curl http://localhost/          # routed to the app
+curl http://localhost/health    # routed to the app health check
 ```
 
 ## Core nginx config pattern
