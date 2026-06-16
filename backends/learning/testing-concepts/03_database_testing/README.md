@@ -19,7 +19,7 @@ transaction/savepoint API.
 |---|---|
 | `db.js` | In-memory schema + connection |
 | `repository.js` | Data access layer — the code under test |
-| `factories.js` | Factory helpers (the pytest-fixture replacement) |
+| `factories.js` | Factory helpers for building test rows |
 | `01_isolation.test.js` | Proving test data doesn't bleed between tests |
 | `02_factories.test.js` | Building realistic data with overridable defaults; cascade delete |
 
