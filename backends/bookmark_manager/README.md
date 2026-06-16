@@ -1,7 +1,6 @@
 # Bookmark Manager
 
 Full-featured Express backend for saving, organizing, and tagging bookmarks.
-A JavaScript translation of the Python/FastAPI original.
 
 ## Features
 
@@ -30,21 +29,21 @@ A JavaScript translation of the Python/FastAPI original.
 app/
   main.js           — app factory, middleware, routers
   server.js         — network entry point (listen)
-  worker.js         — BullMQ worker + scheduled flush (Celery worker/beat)
+  worker.js         — BullMQ worker + scheduled flush
   config.js         — settings from environment
   database.js       — shared Prisma client
   security.js       — password hashing and JWT helpers
   rate_limit.js     — express-rate-limit setup
   redis_client.js   — lazy Redis singleton (swappable in tests)
   tasks.js          — background task logic + enqueue helpers
-  celery_app.js     — BullMQ queue setup
+  queue.js          — BullMQ queue setup
   dependencies.js   — auth middleware
   exceptions.js     — HttpError + error-handling middleware
   schemas/          — Zod request schemas + response serializers
   routers/          — auth, bookmarks, categories, tags
 prisma/
-  schema.prisma     — models (the SQLModel analog)
-  migrations/       — migration scripts (the Alembic analog)
+  schema.prisma     — models
+  migrations/       — migration scripts
 tests/              — Jest + supertest suite
 ```
 
@@ -65,7 +64,6 @@ To run the full stack (API + Postgres + Redis + worker):
 docker compose up -d
 ```
 
-> The Prisma datasource is set to SQLite to keep the test suite self-contained
-> (mirroring the Python original, which tested on SQLite). For a Postgres
-> deployment, switch `provider` in `prisma/schema.prisma` to `postgresql` and
+> The Prisma datasource is set to SQLite to keep the test suite self-contained.
+> For a Postgres deployment, switch `provider` in `prisma/schema.prisma` to `postgresql` and
 > point `DATABASE_URL` at your database.
