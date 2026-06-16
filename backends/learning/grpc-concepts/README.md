@@ -12,10 +12,10 @@ compression) and **Protocol Buffers** (compact, schema-validated binary).
 
 ## No codegen step
 
-The biggest difference from Python: there's **no `protoc` build step**. Python
-runs `grpc_tools.protoc` to generate `*_pb2.py` files. Here, `@grpc/proto-loader`
-parses the `.proto` at runtime (see [load.js](load.js)) and hands back the
-service constructors and message shapes directly. Edit a `.proto`, restart — done.
+There's **no `protoc` build step** and no generated stubs to keep in sync.
+`@grpc/proto-loader` parses the `.proto` at runtime (see [load.js](load.js)) and
+hands back the service constructors and message shapes directly. Edit a `.proto`,
+restart — done.
 
 ## The 4 RPC patterns
 
@@ -55,19 +55,3 @@ node 01_unary.js   # each file is self-contained: starts a server, runs a client
 | [05_errors_and_metadata.js](05_errors_and_metadata.js) | Unary | `grpc.status`, `grpc.Metadata`, initial vs trailing metadata |
 | [06_interceptors.js](06_interceptors.js) | Unary | server auth + logging interceptors, client token injection |
 
-## Python → JS cheat sheet
-
-| Python (grpcio) | JS (@grpc/grpc-js) |
-|-----------------|--------------------|
-| `grpc_tools.protoc` codegen | `protoLoader.loadSync` (runtime, no codegen) |
-| `class Servicer:` methods | `server.addService(svc, { Method(call, cb) {} })` |
-| `return Reply(...)` | `callback(null, { ... })` |
-| `context.abort(code, msg)` | `callback({ code, details })` |
-| `yield msg` (server stream) | `call.write(msg)` + `call.end()` |
-| `request_iterator` (client stream) | `call.on("data" / "end")` |
-| `timeout=0.5` | `{ deadline: Date.now() + 500 }` |
-| `metadata=[("k","v")]` | `grpc.Metadata` + `md.set("k","v")` |
-| `context.send_initial_metadata` | `call.sendMetadata(md)` |
-| `context.set_trailing_metadata` | `callback(null, reply, trailingMd)` |
-| `grpc.ServerInterceptor` | `(methodDescriptor, call) => new ServerInterceptingCall(...)` |
-| `grpc.UnaryUnaryClientInterceptor` | `(options, nextCall) => new InterceptingCall(...)` |
