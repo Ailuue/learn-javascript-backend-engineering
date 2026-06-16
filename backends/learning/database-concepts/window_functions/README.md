@@ -32,12 +32,6 @@ FROM sales;
 
 **Percentiles** — which revenue percentile does each customer fall into? `NTILE()`, `PERCENT_RANK()`.
 
-## Why not just do this in Python?
-
-You could fetch all the data into Python and calculate running totals yourself. But the database can do this in a single pass over indexed data, often 10–100× faster than pulling all rows into memory and processing them in application code.
-
-Window functions are especially powerful for dashboards, reports, and analytics queries.
-
 ## What the files cover
 
 | File | What it teaches |
