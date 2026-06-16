@@ -26,7 +26,7 @@ services:
       - prometheus
 
 # Usage:
-#   1. Start the FastAPI app:  node 03_combined.js
+#   1. Start the app:          node 03_combined.js
 #   2. Start this stack:       docker compose up -d
 #   3. Prometheus UI:          http://localhost:9090
 #   4. Grafana UI:             http://localhost:3000  (admin / admin)
