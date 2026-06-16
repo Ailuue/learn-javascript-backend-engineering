@@ -13,12 +13,12 @@ schema, concept notes, and Jest tests.
 | Playground | Express + [`graphql-http`](https://github.com/graphql/graphql-http) + GraphiQL (see `app.js`) |
 | Testing | `graphqlSync` / `graphql` — no HTTP needed |
 
-## Code-first vs schema-first
+## Schema-first vs code-first
 
-The Python version uses Strawberry (code-first: types from Python classes). The
-idiomatic JS choice here is **schema-first**: write the SDL string, then a
-parallel `resolvers` map, and combine with `makeExecutableSchema`. (Pothos is the
-popular code-first alternative if you prefer types-first.)
+These modules take the **schema-first** approach: write the SDL string, then a
+parallel `resolvers` map, and combine them with `makeExecutableSchema`. (Pothos
+is the popular code-first alternative — types first, schema derived — if you
+prefer that.)
 
 ## Sections
 
@@ -59,15 +59,3 @@ GraphQL: { book(id:"1") { title year } } → client-decided { title, year }
 
 No over-fetching, no under-fetching, multiple resources in one request.
 
-## Strawberry → JS cheat sheet
-
-| Strawberry (Python) | JS (schema-first) |
-|---------------------|-------------------|
-| `@strawberry.type` class | `type` in SDL + default field resolvers |
-| `@strawberry.field def x` | `resolvers.Type.x = (parent) => ...` |
-| `strawberry.Private[str]` | omit the field from SDL (keep it on the object) |
-| `strawberry.scalar(...)` | `new GraphQLScalarType({...})` |
-| `strawberry.union(...)` | `union` in SDL + `__resolveType` |
-| `strawberry.dataloader.DataLoader` | `new DataLoader(batchFn)` |
-| `schema.execute_sync()` | `graphqlSync({ schema, source })` |
-| `context_getter` | `graphql-http` `context` / `contextValue` |
