@@ -14,7 +14,7 @@ self-contained set of runnable demos.
 
 | Folder | What it covers | Tool |
 |---|---|---|
-| [async_sqlalchemy/](async_sqlalchemy/) | Async queries, pool config, exhaustion, concurrency | pg `Pool` |
+| [async-postgres/](async-postgres/) | Async queries, pool config, exhaustion, concurrency | pg `Pool` |
 | [db-migration-demo/](db-migration-demo/) | Migrations: up/down, data migration, rollback | Knex + SQLite |
 | [full_text_search/](full_text_search/) | `tsvector`/`tsquery`, ranking, GIN indexes | pg |
 | [indexes/](indexes/) | B-tree, Hash, GIN, GiST; `EXPLAIN ANALYZE` | pg |
@@ -38,13 +38,3 @@ These are runnable demos (most need Postgres; pgvector also needs Ollama) — th
 print results rather than being part of `npm test`. db-migration-demo runs on
 SQLite with no setup.
 
-## boto3/SQLAlchemy → pg cheat sheet
-
-| Python | JS |
-|--------|-----|
-| `psycopg2.connect()` | `new Client(...)` / `new Pool(...)` |
-| `cur.execute(sql, (a, b))` | `client.query(sql, [a, b])` (`$1, $2` params) |
-| `conn.commit()` / `rollback()` | `client.query("COMMIT" / "ROLLBACK")` |
-| SQLAlchemy async engine + pool | `pg.Pool` (`max`, `idleTimeoutMillis`, …) |
-| Alembic | Knex migrations |
-| `pgvector.sqlalchemy.Vector` | `pgvector/pg` + `vector(N)` columns |
