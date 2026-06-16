@@ -34,12 +34,3 @@ curl -sX POST localhost:8000/orders -H 'Content-Type: application/json' \
   -d '{"item":"keyboard","quantity":2,"customer_id":"cust-42"}'
 ```
 
-## kafka-python → KafkaJS
-
-| kafka-python | KafkaJS |
-|--------------|---------|
-| `KafkaProducer(...).send(topic, value, key)` | `producer.send({ topic, messages: [{ key, value }] })` |
-| `KafkaConsumer(topic, group_id=...)` | `kafka.consumer({ groupId }); subscribe; run({ eachMessage })` |
-| `enable_auto_commit=False` + `commit()` | `run({ autoCommit: false })` + `commitOffsets` |
-| `KafkaAdminClient().create_topics` | `kafka.admin().createTopics` |
-| `auto_offset_reset="earliest"` | `subscribe({ fromBeginning: true })` |
