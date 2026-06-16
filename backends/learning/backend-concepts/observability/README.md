@@ -21,14 +21,3 @@ node 03_combined.js         # Express app on :8000
 docker compose up -d        # Prometheus + Grafana (scrapes host:8000/metrics)
 ```
 
-## Python → JS
-
-| Python | JS |
-|--------|-----|
-| `structlog.get_logger()` | `pino(...)` |
-| `log.bind(k=v)` | `logger.child({ k: v })` |
-| `bind_contextvars(...)` / `merge_contextvars` | `AsyncLocalStorage` + pino `mixin` |
-| `structlog.dev.ConsoleRenderer` | `pino-pretty` transport |
-| `prometheus_client.Counter/Histogram/Gauge` | `prom-client` `Counter`/`Histogram`/`Gauge` |
-| `Histogram.observe()` | `histogram.startTimer()` / `.observe()` |
-| `generate_latest()` | `await registry.metrics()` |
