@@ -43,7 +43,7 @@ cascades: change layer N and every layer after it rebuilds.
     COPY app/ .
 
 Rule: things that change rarely (manifests) go early; things that change often
-(source) go late. The Node analog of Python's "requirements.txt before code".
+(source) go late — i.e. `COPY package*.json` and `npm ci` before `COPY app/`.
 
 --- MULTI-STAGE STRATEGY ---
 
