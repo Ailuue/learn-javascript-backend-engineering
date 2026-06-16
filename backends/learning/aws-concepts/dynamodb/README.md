@@ -24,7 +24,7 @@ date? Model that into the keys or a GSI upfront.
 - `02_crud.js` uses the **raw** `DynamoDBClient` with attribute-value maps
   (`{ S: "x" }`, `{ N: "1" }`) — the wire format.
 - `03_queries.js` uses the **Document client** (`@aws-sdk/lib-dynamodb`), which
-  marshals plain JS objects automatically — the analog of boto3's `resource(...)`.
+  marshals plain JS objects to and from attribute-value maps automatically.
 
 ## What the files cover
 
