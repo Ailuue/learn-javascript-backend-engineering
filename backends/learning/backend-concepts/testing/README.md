@@ -19,7 +19,7 @@ The three core decisions in any DB-backed API test suite:
 | Path | What it is |
 |---|---|
 | `app/db.js` | In-memory SQLite + schema |
-| `app/schemas.js` | Zod request schemas (Pydantic equivalent) |
+| `app/schemas.js` | Zod request schemas |
 | `app/main.js` | Express app: auth middleware, ownership checks, CRUD |
 | `tests/helpers.js` | Savepoint isolation + `makeUser`/`makePost` factories |
 | `tests/auth.test.js` | 401 (no/unknown user) and 403 (not owner) |
@@ -33,13 +33,3 @@ npm test                                                  # whole repo
 npx jest backends/learning/backend-concepts/testing       # this suite
 ```
 
-## FastAPI/pytest → Express/Jest
-
-| Python | JS |
-|--------|-----|
-| Pydantic `BaseModel` | Zod schema + `safeParse` |
-| `Depends(get_current_user)` | `authenticate` middleware |
-| `TestClient(app)` | `supertest(app)` |
-| transaction-rollback `db` fixture | `SAVEPOINT` / `ROLLBACK TO` in beforeEach/afterEach |
-| factory fixtures | `makeUser` / `makePost` helpers |
-| missing required header → 422 | missing header → 401 (idiomatic; 422 is for body validation) |
