@@ -1,8 +1,8 @@
 # Async Testing
 
 In Node, async is the default for I/O — and Jest handles it natively. Return the
-promise (or use an `async` test body and `await`) and Jest waits for it. No
-pytest-asyncio equivalent is needed; it's built in.
+promise (or use an `async` test body and `await`) and Jest waits for it. Nothing
+extra to install; it's built in.
 
 Key tools:
 - `async`/`await` in the test body
@@ -13,7 +13,7 @@ Key tools:
 | File | What it teaches |
 |---|---|
 | `async_db.js` | An async db interface (better-sqlite3 wrapped in promises) |
-| `async_repository.js` | Async repository (awaited queries), mirroring section 03 |
+| `async_repository.js` | Async repository (awaited queries), the async version of section 03 |
 | `01_async_functions.test.js` | Async tests, `.resolves`/`.rejects`, `Promise.all`, async mocks, try/finally cleanup |
 | `02_async_db.test.js` | Async repository queries + SAVEPOINT rollback isolation |
 
