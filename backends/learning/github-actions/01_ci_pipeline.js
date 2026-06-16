@@ -66,11 +66,11 @@ Upload output on failure for post-mortem. Download: gh run download <id> --name 
 Settings → Branches → require status checks → select the job names. PRs can't
 merge until CI is green.
 
---- WHAT CHANGES FROM PYTHON ---
+--- THE NODE BUILDING BLOCKS ---
 
-actions/setup-python → actions/setup-node; pip → npm ci; pytest → npm test;
-python-version matrix → node-version; ~/.cache/pip → setup-node's `cache: npm`.
-Everything else (triggers, concurrency, matrix, artifacts) is identical.
+actions/setup-node sets the runtime; `npm ci` installs; `npm test` runs the
+suite; a node-version matrix tests multiple versions; `cache: npm` caches the
+install. Everything else (triggers, concurrency, matrix, artifacts) is generic.
 
 See workflows/ci.yml in this folder for a complete runnable example.
 */
