@@ -14,8 +14,8 @@ Tools and techniques for understanding what's happening inside a running contain
 
 | File / Folder | Purpose |
 |---|---|
-| `notes_debugging.py` | Annotated reference for all debugging commands |
-| `broken/` | A broken FastAPI container — find and fix three issues |
+| `notes_debugging.js` | Annotated reference for all debugging commands |
+| `broken/` | A broken Express container — find and fix three issues |
 
 ## Essential commands
 
@@ -48,4 +48,4 @@ docker compose up --build
 # The app fails to start — read the logs and fix the three issues
 ```
 
-Hints are in `notes_debugging.py`.
+Hints are in `notes_debugging.js`.
