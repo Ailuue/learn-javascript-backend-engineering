@@ -5,7 +5,7 @@
 x-app-env: &app-env
   DATABASE_URL: postgresql://postgres:password@db:5432/bookmark_manager
   REDIS_URL: redis://redis:6379/0
-  CELERY_BROKER_URL: redis://redis:6379/1
+  BROKER_URL: redis://redis:6379/1
   SECRET_KEY: change-me-in-production
   ALGORITHM: HS256
   ACCESS_TOKEN_EXPIRE_MINUTES: "30"
@@ -55,8 +55,7 @@ services:
       redis:
         condition: service_healthy
 
-  # Combined worker + scheduler (BullMQ worker + repeatable flush job), the
-  # equivalent of the Celery worker and beat services.
+  # Combined worker + scheduler: a BullMQ worker plus a repeatable flush job.
   worker:
     build:
       context: ../..
