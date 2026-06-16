@@ -1,7 +1,6 @@
 # Practice-Backends
 
-A repository for learning Backend Engineering with JavaScript — the JS companion
-to the Python practice repo.
+A repository for learning Backend Engineering with JavaScript.
 
 ## Contents
 
