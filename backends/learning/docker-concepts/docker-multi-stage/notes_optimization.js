@@ -20,9 +20,9 @@ CONCEPTS:
 RECOMMENDATION: node:20-slim for most services; node:20-alpine when every dep is
 pure JS; full node:20 only in builder stages or local dev.
 
-The alpine gotcha mirrors Python's manylinux/musl issue: prebuilt native
-binaries target glibc, so on musl they may rebuild from source — for a smaller
-final image you sometimes add a COMPILER, making the build more complex.
+The alpine gotcha: prebuilt native addons target glibc, so on Alpine's musl libc
+they may rebuild from source — for a smaller final image you sometimes add a
+COMPILER, making the build more complex.
 
 --- LAYER COMBINING ---
 
