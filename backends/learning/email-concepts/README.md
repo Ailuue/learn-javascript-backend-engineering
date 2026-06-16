@@ -53,18 +53,6 @@ npm test -- email-concepts  # unit tests (no server needed)
 docker compose up -d && MAILPIT=1 npm test -- email-concepts
 ```
 
-## Python → JS cheat sheet
-
-| Python | JS (2026) |
-|--------|-----------|
-| `smtplib.SMTP` + `EmailMessage` | `nodemailer.createTransport` + `sendMail` |
-| `msg.add_alternative(html)` | `{ text, html }` options |
-| `msg.add_attachment(...)` | `attachments: [{ filename, content }]` |
-| Jinja2 `Environment` | `nunjucks.configure` |
-| `unittest.mock.patch("smtplib.SMTP")` | `createTransport({ jsonTransport: true })` |
-| `imaplib.IMAP4` | `new ImapFlow(...)` |
-| SendGrid HTTP backend | Resend HTTP backend |
-
 ## Deliverability note (production)
 
 Moving from Mailpit to real delivery needs three DNS records: **SPF** (allowed
