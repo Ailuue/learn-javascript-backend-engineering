@@ -31,16 +31,6 @@ jobs:
       - run: npm test
 ```
 
-## Python → Node CI
-
-| Python CI | Node CI |
-|-----------|---------|
-| `actions/setup-python@v5` | `actions/setup-node@v4` |
-| `python-version` matrix | `node-version` matrix |
-| `pip install -r requirements.txt` | `npm ci` |
-| `pytest` | `npm test` |
-| `actions/cache` on `~/.cache/pip` | `cache: npm` on setup-node |
-
 ## gh CLI
 
 ```bash
