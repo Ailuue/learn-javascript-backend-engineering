@@ -34,5 +34,5 @@ make -n        # dry run — print commands without executing
   can't express. Its model (targets → prerequisites → recipes) maps onto every
   build problem, and `make help` gives teammates a menu of actions.
 
-The recipes here use Node tooling (`node`, `npm`) instead of Python, but the
-Make mechanics are identical in any language.
+The recipes here use Node tooling (`node`, `npm`), but the Make mechanics are
+identical in any language.
