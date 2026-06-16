@@ -11,8 +11,8 @@ with atomic Lua scripts.
 | `03_token_bucket.js` | Token bucket | allows bursts up to capacity, then a steady rate |
 | `04_middleware.js` | Sliding window as Express middleware | per-route limits + standard headers |
 
-`redis_rl.js` holds the shared ioredis client. The Lua scripts port verbatim
-from the Python version — they run on the Redis server so check-and-update is atomic.
+`redis_rl.js` holds the shared ioredis client. The Lua scripts run on the Redis
+server, so each check-and-update is atomic.
 
 ## Run
 
@@ -24,10 +24,3 @@ node 04_middleware.js       # Express server on :8000
 for i in $(seq 1 5); do curl -si localhost:8000/search | head -1; done
 ```
 
-## redis-py → ioredis
-
-| redis-py | ioredis |
-|----------|---------|
-| `client.register_script(LUA)` / `script(keys, args)` | `client.eval(LUA, numKeys, ...keys, ...args)` |
-| `ZREMRANGEBYSCORE`/`ZADD`/`ZCARD` | same commands inside the Lua script |
-| Starlette `BaseHTTPMiddleware` | `app.use(async (req, res, next) => …)` |
