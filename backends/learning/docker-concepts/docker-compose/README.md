@@ -18,10 +18,10 @@ Multi-service application setup using Docker Compose.
 | `docker-compose.override.yml` | Dev overrides (bind mounts, hot reload) |
 | `docker-compose.test.yml` | Isolated test environment |
 | `init.sql` | SQL run on first Postgres startup |
-| `notes_compose.py` | Annotated notes on all concepts |
-| `notes_networking.py` | Container networking deep dive |
-| `notes_devworkflow.py` | Local development workflow patterns |
-| `app/` | FastAPI app wired to the Postgres service |
+| `notes_compose.js` | Annotated notes on all concepts |
+| `notes_networking.js` | Container networking deep dive |
+| `notes_devworkflow.js` | Local development workflow patterns |
+| `app/` | Express app wired to the Postgres service |
 
 ## Try it
 
