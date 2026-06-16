@@ -6,32 +6,42 @@ The N+1 problem is one of the most common performance bugs in backend developmen
 
 Here's the pattern that causes it:
 
-```python
-# Fetch all 100 orders — that's 1 query
-orders = session.query(Order).all()
+```js
+// Fetch all 100 orders — that's 1 query
+const { rows: orders } = await pool.query("SELECT * FROM orders");
 
-# For each order, fetch the customer — that's N more queries
-for order in orders:
-    print(order.customer.name)   # triggers a query each time!
+// For each order, fetch the customer — that's N more queries
+for (const order of orders) {
+  const { rows } = await pool.query(
+    "SELECT * FROM customers WHERE id = $1",
+    [order.customer_id]
+  );
+  console.log(rows[0].name); // a query each time!
+}
 ```
 
 For 100 orders, this runs **101 queries** instead of 1. For 1,000 orders, it's 1,001 queries. The number of queries grows linearly with the number of rows — hence "N+1."
 
 ## Why does this happen?
 
-ORMs like Prisma are helpful: when you access `order.customer`, they automatically run a query to fetch the related customer. This is called **lazy loading** — the relationship is loaded on demand. It's convenient but dangerous in loops.
+ORMs like Prisma are helpful: when you access `order.customer`, they can automatically run a query to fetch the related customer. This is called **lazy loading** — the relationship is loaded on demand. It's convenient but dangerous in loops. The same trap appears with raw SQL the moment you put a query inside a loop.
 
 ## The fix: eager loading
 
 Instead of loading relationships lazily (one at a time, as you access them), you load them eagerly (all at once, in the initial query):
 
-```python
-# Fetch orders AND their customers in a single query (JOIN)
-orders = session.query(Order).options(joinedload(Order.customer)).all()
+```js
+// Fetch orders AND their customers in a single query (JOIN)
+const { rows } = await pool.query(`
+  SELECT orders.*, customers.name AS customer_name
+  FROM orders
+  JOIN customers ON customers.id = orders.customer_id
+`);
 
-# Now order.customer is already loaded — no extra queries
-for order in orders:
-    print(order.customer.name)   # no query!
+// The customer name is already on each row — no extra queries
+for (const row of rows) {
+  console.log(row.customer_name); // no query!
+}
 ```
 
 ## What the files cover
@@ -39,7 +49,7 @@ for order in orders:
 | File | What it teaches |
 |---|---|
 | `01_n_plus_one.js` | Demonstrates the problem clearly — shows the query count growing with row count |
-| `02_solutions.js` | The fixes: `joinedload` (SQL JOIN), `selectinload` (separate IN query), and when to use each |
+| `02_solutions.js` | The fixes: a single JOIN, a batched `WHERE id IN (...)` query, and when to use each |
 | `03_tradeoffs.js` | Eager loading isn't always better — loading too much data has its own costs |
 
 ## How to run
