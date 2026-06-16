@@ -23,11 +23,3 @@ curl -X POST 'localhost:8000/orders?item=keyboard'
 curl localhost:8001/events
 ```
 
-## Python → JS
-
-| Python | JS |
-|--------|-----|
-| `hmac.new(secret, msg, sha256).hexdigest()` | `crypto.createHmac("sha256", secret).update(msg).digest("hex")` |
-| `hmac.compare_digest(a, b)` | `crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b))` |
-| `httpx.AsyncClient().post(...)` | `fetch(url, { method: "POST", body })` |
-| `asyncio.create_task(...)` | call the async fn without awaiting (or `setImmediate`) |
