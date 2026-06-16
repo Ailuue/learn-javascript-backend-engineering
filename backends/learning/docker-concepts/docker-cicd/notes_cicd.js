@@ -46,12 +46,11 @@ GITHUB_TOKEN is provided automatically; the job needs `permissions: packages: wr
 Placed AFTER COPY package*.json + npm ci, so a new SHA each commit doesn't bust
 the install layer — only the final layers change.
 
---- WHAT CHANGES FROM THE PYTHON VERSION ---
+--- LANGUAGE-AGNOSTIC BY DESIGN ---
 
-The pipeline is identical; only the app/Dockerfile differ: node base images,
-`npm ci` instead of `pip install`, `node server.js` instead of uvicorn. The
-build-push-action, caching, GHCR, tags-vs-digests, and build-arg patterns are
-language-agnostic.
+The pipeline cares only about the Dockerfile: node base images, `npm ci`, and
+`node server.js`. The build-push-action, caching, GHCR, tags-vs-digests, and
+build-arg patterns are the same whatever the app is written in.
 
 --- EXERCISES ---
 
