@@ -5,11 +5,11 @@
  * request, crippling at 1000 req/s. A pool keeps connections open and reuses them.
  *
  * node-postgres Pool knobs:
- *   max                     max connections (SQLAlchemy's pool_size + max_overflow)
- *   connectionTimeoutMillis wait this long for a free connection, else error (pool_timeout)
+ *   max                     max connections in the pool
+ *   connectionTimeoutMillis wait this long for a free connection, else error
  *   idleTimeoutMillis       close a connection after it's idle this long
- *   maxLifetimeSeconds      retire a connection older than this (≈ pool_recycle) —
- *                           the proactive guard against firewalls/DBs closing idle conns
+ *   maxLifetimeSeconds      retire a connection older than this — the proactive
+ *                           guard against firewalls/DBs closing idle conns
  *
  * (pg has no built-in pre-ping; you typically rely on error handling + retry,
  * or maxLifetimeSeconds to avoid stale connections.)
