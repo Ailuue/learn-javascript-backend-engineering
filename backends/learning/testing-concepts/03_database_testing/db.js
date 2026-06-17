@@ -3,8 +3,7 @@
  *
  * Uses better-sqlite3 — the popular *synchronous* SQLite driver for Node. An
  * in-memory database (":memory:") needs no file and no cleanup, so the whole
- * section runs standalone with no Docker (the same role SQLite plays in the
- * Python version).
+ * section runs standalone with no Docker.
  */
 
 const Database = require("better-sqlite3");
