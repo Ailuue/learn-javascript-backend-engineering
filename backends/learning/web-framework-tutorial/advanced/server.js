@@ -1,8 +1,8 @@
 /*
- * FastAPI Advanced User Guide → Express
- * ======================================
- * The advanced-guide playground, translated to Express + ws. Each section maps a
- * FastAPI advanced feature to its Node equivalent.
+ * Advanced web framework guide — Express + ws
+ * ===========================================
+ * A playground of advanced HTTP patterns: settings, timing middleware, streaming,
+ * SSE, custom responses, basic auth, sub-apps, WebSockets, and pagination.
  *
  * Run:  node advanced/server.js   →  http://localhost:8001
  */
@@ -13,9 +13,9 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const { WebSocketServer } = require("ws");
 
-// ── Settings (FastAPI BaseSettings → env vars) ──────────────────────────────
+// ── Settings (from env vars) ────────────────────────────────────────────────
 const settings = {
-  appName: process.env.ADV_APP_NAME || "FastAPI Advanced",
+  appName: process.env.ADV_APP_NAME || "Advanced Demo",
   adminEmail: process.env.ADV_ADMIN_EMAIL || "admin@example.com",
   itemsPerPage: Number(process.env.ADV_ITEMS_PER_PAGE || 10),
   debug: process.env.ADV_DEBUG === "true",
@@ -26,10 +26,10 @@ app.use(express.json());
 app.use(express.text({ type: ["application/xml", "text/*"] }));
 app.use(cookieParser());
 
-// ── Lifespan (FastAPI lifespan → startup log) ───────────────────────────────
+// ── Startup hook (startup log) ──────────────────────────────────────────────
 const startupLog = [`App started at ${new Date().toLocaleTimeString()}`, `Loaded settings: app_name=${settings.appName}`];
 
-// ── Timing middleware (FastAPI @app.middleware) ─────────────────────────────
+// ── Timing middleware (adds an X-Process-Time header) ───────────────────────
 app.use((req, res, next) => {
   const t0 = process.hrtime.bigint();
   res.on("finish", () => {}); // header must be set before send; use a wrapper below
@@ -149,7 +149,7 @@ app.get("/advanced/request-info", (req, res) =>
   })
 );
 
-// ── 15. Sub applications (FastAPI app.mount → an Express sub-router) ─────────
+// ── 15. Sub applications (an Express sub-router mounted on a path) ───────────
 const subapp = express();
 subapp.get("/", (_req, res) => res.json({ message: "Hello from the sub-application!" }));
 app.use("/subapp", subapp);
@@ -168,8 +168,8 @@ app.post("/advanced/base64/encode", (req, res) => {
   res.json({ name: req.body.name, data_base64: buf.toString("base64"), data_length: buf.length });
 });
 
-// ── 24. Generics → typed pagination ─────────────────────────────────────────
-app.get("/advanced/python-types/paginated", (req, res) => {
+// ── 24. Typed pagination ────────────────────────────────────────────────────
+app.get("/advanced/pagination/paginated", (req, res) => {
   const page = Number(req.query.page ?? 1);
   const pageSize = Number(req.query.page_size ?? 3);
   const all = Array.from({ length: 10 }, (_, i) => ({ id: i + 1, name: `Item ${i + 1}` }));
@@ -177,7 +177,7 @@ app.get("/advanced/python-types/paginated", (req, res) => {
   res.json({ items: all.slice(start, start + pageSize), total: all.length, page, page_size: pageSize });
 });
 
-// ── 17. WebSockets (FastAPI @app.websocket → ws on the HTTP server) ──────────
+// ── 17. WebSockets (ws on the HTTP server) ──────────────────────────────────
 const server = http.createServer(app);
 const wss = new WebSocketServer({ noServer: true });
 server.on("upgrade", (req, socket, head) => {
