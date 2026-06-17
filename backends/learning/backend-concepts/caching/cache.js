@@ -7,7 +7,7 @@
  *   pending:writes      — Redis list used by write-behind to queue DB flushes
  *
  * ioredis is the standard 2026 Node Redis client (already used by the backends).
- * Everything is async, unlike Python's blocking redis-py calls.
+ * Every call is async and returns a promise.
  */
 
 const Redis = require("ioredis");
