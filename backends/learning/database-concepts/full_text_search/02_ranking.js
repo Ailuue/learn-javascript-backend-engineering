@@ -6,7 +6,7 @@
  *   setweight(vec, 'A'..'D')— label lexemes by importance (title=A, body=B); ts_rank honours it
  *   ts_headline(cfg, text, query, opts) — a snippet with matched terms highlighted
  *
- * The SQL is identical to the Python version. Run after the table exists
+ * Run after the table exists
  * (01_basics.js seeds it).  node 02_ranking.js
  */
 
