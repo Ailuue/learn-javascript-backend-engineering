@@ -1,7 +1,7 @@
 /**
  * Transfer rows from the SQLite library.db into a PostgreSQL `library` database.
  *
- * Strategy (same as the Python version):
+ * Strategy:
  *   1. Read every row from SQLite.
  *   2. Insert into Postgres (here both connections are Knex instances).
  *   3. Reset Postgres sequences so SERIAL auto-increment continues correctly —
