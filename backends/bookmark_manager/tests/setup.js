@@ -1,5 +1,5 @@
-// Shared test setup — the JS analog of conftest.py. Required at the top of every
-// bookmark_manager test file. It MUST configure the environment before anything
+// Shared test setup — required at the top of every bookmark_manager test file.
+// It MUST configure the environment before anything
 // imports the Prisma client, swaps in a fake Redis, and stubs the background
 // queue so no broker is needed.
 
@@ -37,7 +37,7 @@ function authHeadersFor(username) {
   return { Authorization: `Bearer ${createAccessToken(username)}` };
 }
 
-// The default fixtures from conftest.py.
+// The default test fixtures.
 async function defaultUser() {
   const user = await createUser({
     email: "test@example.com",
