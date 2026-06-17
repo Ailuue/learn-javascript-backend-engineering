@@ -1,9 +1,8 @@
 // Postgres helper + query counter for the N+1 demos.
 //
-// The Python version used SQLAlchemy's ORM and hooked an event to count the
-// queries its lazy loading fired. JS ORMs (Prisma, Drizzle) hide query counts
-// the same way. Here we use raw `pg` and a counting wrapper so every round-trip
-// is explicit — which is exactly the thing N+1 makes easy to lose track of.
+// ORMs (Prisma, Drizzle) hide query counts behind lazy-loaded relations, which
+// is how N+1 sneaks in. Here we use raw `pg` and a counting wrapper so every
+// round-trip is explicit — exactly the thing N+1 makes easy to lose track of.
 
 const { Pool } = require("pg");
 
