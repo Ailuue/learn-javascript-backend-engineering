@@ -1,9 +1,8 @@
 // Shared test setup: savepoint-based isolation + factory helpers.
 //
 // installIsolation() wraps each test in a SAVEPOINT and rolls it back afterwards,
-// so every test starts from a clean database (the rollback strategy from the
-// Python conftest). Factories return rows with sensible, overridable defaults —
-// the JS replacement for pytest factory fixtures.
+// so every test starts from a clean database. Factories return rows with
+// sensible, overridable defaults for building test data.
 
 const { db } = require("../app/db");
 
