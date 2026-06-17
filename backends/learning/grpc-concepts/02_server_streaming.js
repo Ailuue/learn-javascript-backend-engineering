@@ -11,7 +11,7 @@
  * Uses: live price/metric feeds, log tailing, large result sets, progress.
  *
  * Server side: the handler gets a writable `call`. You `call.write(msg)` for each
- * message and `call.end()` to finish (the analog of Python's `yield` + return).
+ * message and `call.end()` to finish.
  * Client side: the stub call returns a Readable stream — listen for "data",
  * "end", and "error".
  *
