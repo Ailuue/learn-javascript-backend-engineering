@@ -1,4 +1,4 @@
-// Auth routes — the JS analog of routers/auth.py.
+// Auth routes
 
 const express = require("express");
 
