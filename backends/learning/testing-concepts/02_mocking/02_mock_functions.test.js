@@ -1,8 +1,8 @@
 /**
  * jest.fn() — standalone mock functions
  * =====================================
- * `jest.fn()` is the JS counterpart to MagicMock: a function that records every
- * call. Hand one to code under test as a fake dependency (dependency injection).
+ * `jest.fn()` is a function that records every call. Hand one to code under test
+ * as a fake dependency (dependency injection).
  *
  * Configure behaviour:
  *   fn.mockReturnValue(x)        what fn() returns
