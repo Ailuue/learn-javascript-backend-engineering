@@ -3,19 +3,17 @@
  *
  * So far jobs are enqueued by your code calling queue.add(). A *Job Scheduler*
  * enqueues a job automatically on a schedule — cron jobs managed inside Node.
- * This is BullMQ's answer to Celery Beat, but with a key difference: there's no
- * separate "beat" process. A scheduler lives in the queue itself; any running
- * Worker will pick up the jobs it produces.
+ * There's no separate scheduler process: a scheduler lives in the queue itself,
+ * and any running Worker will pick up the jobs it produces.
  *
  *   queue.upsertJobScheduler(id, repeatOpts, template)
  *
  * `repeatOpts` is either:
- *   - { every: ms }                 → fixed interval (like a timedelta)
- *   - { pattern: "30 9 * * 1-5" }   → cron expression (like crontab)
+ *   - { every: ms }                 → fixed interval in milliseconds
+ *   - { pattern: "30 9 * * 1-5" }   → cron expression
  *
  * `upsert` means it's idempotent and keyed by `id`: calling it again with the
- * same id updates the schedule instead of creating a duplicate. (Celery Beat's
- * schedule dict has the same "one entry per name" behaviour.)
+ * same id updates the schedule instead of creating a duplicate.
  *
  * Cron fields are the standard 5: minute hour day-of-month month day-of-week.
  *
@@ -57,8 +55,8 @@ const handlers = {
 };
 
 // ---------------------------------------------------------------------------
-// Schedule definitions — the analog of Celery's app.conf.beat_schedule.
-// Each scheduler has a stable id, a repeat spec, and a job template.
+// Schedule definitions. Each scheduler has a stable id, a repeat spec, and a
+// job template.
 // ---------------------------------------------------------------------------
 
 const schedules = [
