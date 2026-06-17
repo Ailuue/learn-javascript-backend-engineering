@@ -1,13 +1,12 @@
 /**
  * jest.mock — replacing a whole module
  * ====================================
- * Python's `patch("checkout.EmailService")` swaps a name for a MagicMock. Jest's
- * equivalent is `jest.mock("./services")`, which auto-mocks the module: every
- * exported class becomes a mock constructor and its methods become jest.fn()s.
+ * `jest.mock("./services")` auto-mocks a whole module: every exported class
+ * becomes a mock constructor and its methods become jest.fn()s.
  *
- * The golden rule is the same as pytest's: mock the module that the code under
- * test *requires*. checkout.js does `require("./services")`, so we mock
- * `"./services"` and checkout transparently gets the mocked version.
+ * The golden rule: mock the module that the code under test *requires*.
+ * checkout.js does `require("./services")`, so we mock `"./services"` and
+ * checkout transparently gets the mocked version.
  *
  * jest.mock calls are hoisted to the top of the file by Jest, so the mock is in
  * place before checkout is required.
@@ -26,8 +25,7 @@ beforeEach(() => jest.clearAllMocks());
 
 // ---------------------------------------------------------------------------
 // 1. Auto-mocked class: configure the instance the code constructs
-//    mockImplementation lets each `new EmailService()` return our fake instance,
-//    the analog of pytest's `MockEmailService.return_value`.
+//    mockImplementation lets each `new EmailService()` return our fake instance.
 // ---------------------------------------------------------------------------
 
 describe("registerUser", () => {
