@@ -1,4 +1,4 @@
-// URL management routes — the JS analog of routers/urls.py.
+// URL management routes
 
 const express = require("express");
 
