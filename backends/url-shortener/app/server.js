@@ -1,7 +1,6 @@
-// Network entry point — the JS analog of running `uvicorn app.main:app`. Opens
-// the Redis cache connection at startup (the FastAPI lifespan's `cache.init()`)
-// then listens. Schema is managed by Prisma Migrate: run `npx prisma migrate
-// deploy` before starting.
+// Network entry point — opens the Redis cache connection at startup
+// (`cache.init()`) then listens. Schema is managed by Prisma Migrate: run
+// `npx prisma migrate deploy` before starting.
 
 const app = require("./main");
 const cache = require("./cache");
