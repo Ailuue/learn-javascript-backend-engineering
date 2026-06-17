@@ -1,16 +1,15 @@
 // Shared async Postgres layer (node-postgres `Pool`).
 //
-// Node is async by default, so there's no "async vs sync driver" split like
-// Python's asyncpg-vs-psycopg2 — `pg` is just async. A `Pool` keeps connections
-// open and hands them out; `pool.query()` grabs+releases one automatically,
-// while `pool.connect()` checks one out that YOU must release (needed for
-// multi-statement transactions).
+// Node is async by default, so `pg` queries never block the event loop. A `Pool`
+// keeps connections open and hands them out; `pool.query()` grabs+releases one
+// automatically, while `pool.connect()` checks one out that YOU must release
+// (needed for multi-statement transactions).
 //
-// Pool option mapping from SQLAlchemy:
-//   max                    ≈ pool_size + max_overflow (pg has one cap)
-//   connectionTimeoutMillis ≈ pool_timeout (wait before failing to get one)
+// Pool options:
+//   max                     max number of connections in the pool
+//   connectionTimeoutMillis how long to wait for a free connection before failing
 //   idleTimeoutMillis       close idle connections after N ms
-//   maxLifetimeSeconds      ≈ pool_recycle (retire old connections)
+//   maxLifetimeSeconds      retire connections older than N seconds
 
 const { Pool } = require("pg");
 
