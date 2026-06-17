@@ -13,7 +13,7 @@
  *   Partition aggregate: AVG(col) OVER (PARTITION BY cat) — same value per group row
  *
  * Gotcha: you can't filter on a window function in WHERE — wrap it in a CTE/subquery.
- * The SQL is identical to the Python version.
+ * Pure SQL — runnable as-is.
  *
  * Run:  docker compose up -d (Postgres)  →  node 01_window_functions.js
  */
