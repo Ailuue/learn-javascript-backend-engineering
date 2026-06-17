@@ -10,7 +10,7 @@
  *            (@>, &&, @@). Slow writes, fast reads.
  *   GiST   — spatial/range strategies: ranges, geometry, KNN (&&, @>, <->).
  *
- * The SQL is identical to the Python version — only the driver glue changes.
+ * Pure SQL — only the driver glue is Node-specific.
  *
  * Run:  docker compose up -d (Postgres)  →  node 01_index_types.js
  */
