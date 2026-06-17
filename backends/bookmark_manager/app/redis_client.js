@@ -1,8 +1,7 @@
 // Lazy Redis client used by the JWT blocklist and the click counter.
 //
 // A module-level singleton with getRedis() / setRedis() lets tests swap in
-// ioredis-mock without monkey-patching every import site — the JS analog of
-// redis_client.py.
+// ioredis-mock without monkey-patching every import site.
 
 const Redis = require("ioredis");
 
