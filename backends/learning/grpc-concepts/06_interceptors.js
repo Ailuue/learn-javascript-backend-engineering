@@ -10,7 +10,7 @@
  *   CLIENT interceptors wrap outgoing RPCs before they leave:
  *     inject auth headers, add tracing IDs, retry.
  *
- * grpc-js shapes these differently from Python:
+ * grpc-js shapes interceptors like this:
  *   - A client interceptor is `(options, nextCall) => new InterceptingCall(...)`
  *     with a `start(metadata, listener, next)` hook to mutate outbound metadata.
  *   - A server interceptor is `(methodDescriptor, call) => new
