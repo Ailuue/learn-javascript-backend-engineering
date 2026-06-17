@@ -1,6 +1,5 @@
-// HTTP error type + centralized error handling. FastAPI gave us HTTPException
-// and automatic async error propagation for free; in Express we provide the
-// equivalents explicitly.
+// HTTP error type + centralized error handling. Provides an HttpError class and
+// an async wrapper so thrown/rejected errors reach the error middleware.
 
 class HttpError extends Error {
   constructor(statusCode, detail, headers = null) {
