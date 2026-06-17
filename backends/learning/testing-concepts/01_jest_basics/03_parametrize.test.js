@@ -1,9 +1,8 @@
 /**
  * Data-driven tests with test.each
  * ================================
- * `test.each` is Jest's answer to pytest's @parametrize: run the same test body
- * over a table of cases. Each row becomes its own reported test, so failures
- * point at the exact input.
+ * `test.each` runs the same test body over a table of cases. Each row becomes its
+ * own reported test, so failures point at the exact input.
  *
  * Two table forms:
  *   - Array of arrays/values + a printf-style title ("%s", "%i", "%p")
