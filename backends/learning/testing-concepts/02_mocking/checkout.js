@@ -2,9 +2,9 @@
  * Business logic that uses the external services.
  *
  * These functions construct service instances internally. To mock them, the
- * tests replace the `services` module with `jest.mock("./services")` — Jest's
- * answer to Python's `patch("checkout.EmailService")`. Because checkout requires
- * the module by path, mocking that module path swaps what checkout sees.
+ * tests replace the `services` module with `jest.mock("./services")`. Because
+ * checkout requires the module by path, mocking that module path swaps what
+ * checkout sees.
  */
 
 const { EmailService, PaymentService, WeatherClient } = require("./services");
