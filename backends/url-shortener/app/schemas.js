@@ -1,5 +1,5 @@
-// Zod request schemas + response serializers — the JS analog of schemas.py.
-// Input keys stay snake_case to match the JSON the API accepts/returns.
+// Zod request schemas + response serializers. Input keys stay snake_case to
+// match the JSON the API accepts/returns.
 
 const { z } = require("zod");
 
