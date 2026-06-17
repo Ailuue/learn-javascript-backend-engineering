@@ -1,4 +1,4 @@
-// Initial schema — the analog of Alembic's first revision.
+// Initial schema — the first migration revision.
 // up() builds the schema; down() reverses it (drop in FK-safe order).
 
 exports.up = (knex) =>
