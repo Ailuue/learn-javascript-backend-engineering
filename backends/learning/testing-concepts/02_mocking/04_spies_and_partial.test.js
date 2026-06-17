@@ -1,14 +1,13 @@
 /**
  * Spies, partial mocks & interface safety
  * =======================================
- * Python's `autospec` enforces that a mock matches the real interface (method
- * names AND signatures). JavaScript has no runtime equivalent for signatures —
- * that guarantee comes from **TypeScript** plus `jest.mocked()`. But you can get
- * the *method-name* safety at runtime with `jest.spyOn`:
+ * Making a mock match the real interface (method names AND signatures) is mostly
+ * a **TypeScript** concern, via `jest.mocked()`. But you can get *method-name*
+ * safety at runtime with `jest.spyOn`:
  *
  *   - A plain jest.fn() accepts any call (typos pass silently — the footgun).
  *   - jest.spyOn(obj, "method") THROWS if the method doesn't exist, catching a
- *     misspelled name the way autospec/spec does.
+ *     misspelled name.
  *   - spyOn keeps the real implementation until you override it, and
  *     mockRestore() puts the original back.
  *   - Partial module mocks (jest.requireActual) keep some real exports.
@@ -31,7 +30,7 @@ test("plain mock accepts a misspelled method (no safety)", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 2. jest.spyOn catches a nonexistent method (the autospec/spec safety)
+// 2. jest.spyOn catches a nonexistent method (method-name safety)
 // ---------------------------------------------------------------------------
 
 test("spyOn throws when the method does not exist", () => {
