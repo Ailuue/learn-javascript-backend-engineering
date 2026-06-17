@@ -1,5 +1,5 @@
 /**
- * Factory helpers — the JS replacement for pytest factory fixtures.
+ * Factory helpers for building test rows.
  *
  * Each returns a callable bound to a db handle that creates a row with sensible
  * defaults, overridable per call. Plain functions, no fixture injection magic.
