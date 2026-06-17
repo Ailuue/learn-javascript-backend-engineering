@@ -1,5 +1,4 @@
-// Application settings, read from the environment with defaults — the JS analog
-// of the pydantic-settings `Settings` class in config.py.
+// Application settings, read from the environment with defaults.
 
 function getSettings() {
   return {
