@@ -1,7 +1,6 @@
-// Background-job infrastructure — the JS analog of celery_app.py. BullMQ is the
-// Node equivalent of Celery: a Redis-backed queue with separate worker
-// processes. The queue is constructed lazily so importing this module never
-// opens a Redis connection on its own.
+// Background-job infrastructure. BullMQ is a Redis-backed queue with separate
+// worker processes. The queue is constructed lazily so importing this module
+// never opens a Redis connection on its own.
 
 const { Queue } = require("bullmq");
 
