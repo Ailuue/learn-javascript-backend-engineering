@@ -7,8 +7,7 @@
  *   401 Unauthorized → no identity, or an invalid one
  *   403 Forbidden    → valid identity, but you don't own this resource
  *
- * (Unlike the FastAPI version, a missing header here is 401, not 422 — see the
- * note in app/main.js.)
+ * (A missing auth header here is 401, not 422 — see the note in app/main.js.)
  */
 
 const request = require("supertest");
