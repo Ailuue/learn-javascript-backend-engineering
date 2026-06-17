@@ -11,9 +11,9 @@
  *   beforeEach → SAVEPOINT test     (a nested transaction marker)
  *   afterEach  → ROLLBACK TO test   (undoes every write the test made)
  *
- * This is the same idea as the Python version's connection-level rollback —
- * fast (no DDL), automatic, and order-independent. The same pattern applies to
- * Postgres via your client's transaction/savepoint API.
+ * This connection-level rollback is fast (no DDL), automatic, and
+ * order-independent. The same pattern applies to Postgres via your client's
+ * transaction/savepoint API.
  *
  * Run:
  *   npx jest backends/learning/testing-concepts/03_database_testing/01_isolation
