@@ -1,6 +1,6 @@
-// Minimal structured-ish logger — the JS analog of logging_config.py. Node has
-// no stdlib logging module, so we expose a tiny console wrapper with the same
-// "timestamp | LEVEL | message" shape and a level threshold.
+// Minimal structured-ish logger. Node has no stdlib logging module, so we expose
+// a tiny console wrapper with a "timestamp | LEVEL | message" shape and a level
+// threshold.
 
 const { getSettings } = require("./config");
 
