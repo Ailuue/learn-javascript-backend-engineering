@@ -1,6 +1,6 @@
-// Response serializers — the JS analog of the `*Public` Pydantic models. They
-// project Prisma's camelCase rows onto the snake_case JSON shape the API
-// contract (and the tests) expect, and crucially never leak password_hash.
+// Response serializers. They project Prisma's camelCase rows onto the snake_case
+// JSON shape the API contract (and the tests) expect, and crucially never leak
+// password_hash.
 
 function tagPublic(tag) {
   return { id: tag.id, name: tag.name };
