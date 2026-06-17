@@ -1,5 +1,4 @@
-// Application settings, read once from the environment with sensible defaults —
-// the JS analog of the pydantic-settings `Settings` class in config.py.
+// Application settings, read once from the environment with sensible defaults.
 
 function getSettings() {
   return {
@@ -14,8 +13,7 @@ function getSettings() {
 
     redisUrl: process.env.REDIS_URL || "redis://localhost:6379/0",
     ratelimitStorageUri: process.env.RATELIMIT_STORAGE_URI || "redis://localhost:6379/0",
-    celeryBrokerUrl: process.env.CELERY_BROKER_URL || "redis://localhost:6379/1",
-    celeryResultBackend: process.env.CELERY_RESULT_BACKEND || "redis://localhost:6379/1",
+    brokerUrl: process.env.BROKER_URL || "redis://localhost:6379/1",
   };
 }
 
