@@ -1,4 +1,4 @@
-// Zod schemas for bookmarks — the JS analog of schemas/bookmark.py.
+// Zod schemas for bookmarks
 
 const { z } = require("zod");
 
