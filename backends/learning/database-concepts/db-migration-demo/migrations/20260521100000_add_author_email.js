@@ -1,6 +1,5 @@
-// A schema change WITH a data migration — the pattern Alembic's docstring
-// describes. up() adds a column, then backfills existing rows in the same
-// migration; down() drops the column.
+// A schema change WITH a data migration. up() adds a column, then backfills
+// existing rows in the same migration; down() drops the column.
 
 exports.up = async (knex) => {
   await knex.schema.alterTable("authors", (t) => t.string("email", 200));
