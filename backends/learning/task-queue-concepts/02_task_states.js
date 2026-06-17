@@ -9,16 +9,14 @@
  *
  * (There's also `waiting-children` for flows, and `prioritized`.)
  *
- * Compared to Celery:
- *   - Celery's PENDING is reported for *any* id, even unknown ones, because the
- *     result backend has no record. BullMQ is the opposite: an unknown job id
- *     resolves to state "unknown" — the queue genuinely doesn't have it.
- *   - Celery's `update_state(meta=...)` for progress maps to `job.updateProgress()`.
- *     Progress can be a number or an object and is delivered live via QueueEvents
- *     ("progress") or read from `job.progress`.
+ * Notes:
+ *   - An unknown job id resolves to state "unknown" — the queue genuinely
+ *     doesn't have it.
+ *   - For progress, call `job.updateProgress()`. Progress can be a number or an
+ *     object and is delivered live via QueueEvents ("progress") or read from
+ *     `job.progress`.
  *   - On failure, the thrown Error's message + stack are stored on the job
- *     (`job.failedReason`, `job.stacktrace`) — the analog of Celery storing the
- *     exception and traceback.
+ *     (`job.failedReason`, `job.stacktrace`).
  *
  * HOW TO RUN THIS FILE:
  *   Terminal 1:  docker compose up
@@ -37,8 +35,7 @@ const QUEUE_NAME = "task_states";
 async function longRunningJob(job, steps) {
   for (let i = 0; i < steps; i += 1) {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    // updateProgress pushes a custom payload a caller can read live — the
-    // direct analog of Celery's self.update_state(meta={...}).
+    // updateProgress pushes a custom payload a caller can read live.
     await job.updateProgress({
       current: i + 1,
       total: steps,
@@ -107,7 +104,7 @@ async function main() {
   console.log(`   stack (1st line): ${reloaded.stacktrace?.[0]?.split("\n")[0]}`);
 
   // --- Unknown job id ---
-  console.log("\n3. Unknown job id resolves to 'unknown' (not PENDING like Celery):");
+  console.log("\n3. Unknown job id resolves to 'unknown' (no record in Redis):");
   const ghost = await Job.fromId(queue, "does-not-exist");
   console.log(`   Job lookup: ${ghost}`); // undefined — no record in Redis
 
