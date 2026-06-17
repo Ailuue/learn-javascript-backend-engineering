@@ -1,5 +1,5 @@
-// Zod schemas for users — the JS analog of schemas/user.py. Input keys stay
-// snake_case to match the JSON the API accepts.
+// Zod schemas for users. Input keys stay snake_case to match the JSON the API
+// accepts.
 
 const { z } = require("zod");
 
