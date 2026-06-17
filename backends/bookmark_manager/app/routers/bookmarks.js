@@ -1,4 +1,4 @@
-// Bookmark routes — the JS analog of routers/bookmarks.py.
+// Bookmark routes
 
 const express = require("express");
 
@@ -16,7 +16,7 @@ const { fetchBookmarkMetadata, CLICK_KEY_PREFIX } = require("../tasks");
 const router = express.Router();
 const logger = makeLogger("app.routers.bookmarks");
 
-// Mirrors `_get_or_create_tag` via Prisma's connectOrCreate using the
+// Get-or-create each tag via Prisma's connectOrCreate using the
 // (name, user_id) composite unique constraint.
 function tagConnectOrCreate(userId, names) {
   return names.map((name) => ({
