@@ -1,9 +1,8 @@
 // Shared AWS SDK v3 client config pointed at LocalStack.
 //
-// The 2026 JS way is AWS SDK v3: modular per-service packages
-// (@aws-sdk/client-*) and a command pattern — `client.send(new XCommand({...}))`
-// — instead of boto3's `client.x(...)`. Every client takes the same shape of
-// config, so we centralise it here.
+// AWS SDK v3 uses modular per-service packages (@aws-sdk/client-*) and a command
+// pattern — `client.send(new XCommand({...}))`. Every client takes the same
+// shape of config, so we centralise it here.
 //
 //   - endpoint:    point every call at LocalStack instead of real AWS
 //   - credentials: LocalStack accepts any non-empty creds
