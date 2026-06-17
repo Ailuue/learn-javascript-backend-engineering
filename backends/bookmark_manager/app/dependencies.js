@@ -1,6 +1,5 @@
-// Auth middleware — the JS analog of dependencies.py. Express middleware replace
-// FastAPI's Depends(): `getCurrentToken` validates the bearer token (and checks
-// the Redis blocklist), `getCurrentUser` additionally loads the User row.
+// Auth middleware. `getCurrentToken` validates the bearer token (and checks the
+// Redis blocklist); `getCurrentUser` additionally loads the User row.
 
 const prisma = require("./database");
 const { HttpError, asyncHandler } = require("./exceptions");
