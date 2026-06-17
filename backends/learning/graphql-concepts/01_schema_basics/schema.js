@@ -4,9 +4,8 @@
  *
  * The absolute minimum: one type, a query, and a mutation.
  *
- * Where Strawberry is code-first (types from Python classes), the idiomatic JS
- * approach here is **schema-first**: write the schema in SDL (the GraphQL
- * Schema Definition Language) and attach a parallel `resolvers` map.
+ * These modules take the **schema-first** approach: write the schema in SDL (the
+ * GraphQL Schema Definition Language) and attach a parallel `resolvers` map.
  * `makeExecutableSchema` from @graphql-tools/schema stitches them together.
  *
  * Run the tests (schema.test.js) to see queries in action, or start app.js for
