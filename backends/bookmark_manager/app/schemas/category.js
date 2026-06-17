@@ -1,4 +1,4 @@
-// Zod schemas for categories — the JS analog of schemas/category.py.
+// Zod schemas for categories
 
 const { z } = require("zod");
 
