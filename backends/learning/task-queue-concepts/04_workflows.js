@@ -1,9 +1,9 @@
 /**
  * Concept 04 — Workflows: chains, groups, fan-in (BullMQ Flows)
  *
- * Celery composes tasks with chain / group / chord. BullMQ expresses the same
- * shapes with **Flows**: a tree of jobs where children run before their parent,
- * and a parent reads its children's return values via `job.getChildrenValues()`.
+ * BullMQ composes multi-step work with **Flows**: a tree of jobs where children
+ * run before their parent, and a parent reads its children's return values via
+ * `job.getChildrenValues()`.
  *
  *   chain (a → b → c, each result feeds the next)
  *     ── Model as a nested flow, one child per level. The deepest child runs
