@@ -3,8 +3,8 @@
  * =================================
  * The full Authorization Code flow from 01_concepts.js, implemented with
  * express-session for state + the built-in `fetch` for the token exchange.
- * (Python used Authlib; doing it by hand here keeps the moving parts visible.
- * For production, `openid-client` or `passport-github2` handle the boilerplate.)
+ * (Doing it by hand here keeps the moving parts visible. For production,
+ * `openid-client` or `passport-github2` handle the boilerplate.)
  *
  * Endpoints:
  *   GET /                       login page
