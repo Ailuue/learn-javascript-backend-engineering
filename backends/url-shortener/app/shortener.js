@@ -1,4 +1,4 @@
-// Slug generation — the JS analog of shortener.py.
+// Slug generation.
 
 const crypto = require("crypto");
 
