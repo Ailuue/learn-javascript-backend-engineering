@@ -7,12 +7,12 @@
  *   plain : 2024-01-15 10:23 ERROR Failed to process order 12345 for user 99
  *   json  : {"level":"error","event":"order_failed","order_id":12345,"user_id":99}
  *
- * Pino is the de-facto fast JSON logger for Node. Concepts that map from structlog:
+ * Pino is the de-facto fast JSON logger for Node. Key concepts:
  *   - child logger  (`logger.child({...})`) = a "bound logger": every line it
  *     emits carries those fields. The parent is unchanged.
- *   - AsyncLocalStorage = async-safe per-request context (structlog's
- *     contextvars). Anything logged within `run(store, fn)` can read the store —
- *     the right tool for request_id/user_id in async handlers.
+ *   - AsyncLocalStorage = async-safe per-request context. Anything logged within
+ *     `run(store, fn)` can read the store — the right tool for request_id/user_id
+ *     in async handlers.
  *   - pino-pretty = human-readable dev output (vs raw JSON in production).
  *
  * Run:  node 01_structured_logging.js
