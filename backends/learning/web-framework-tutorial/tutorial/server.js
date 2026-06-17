@@ -1,9 +1,9 @@
 /*
- * FastAPI tutorial → Express (the 2026 JS way)
- * =============================================
- * A single growing server that adds one concept at a time, mirroring the
- * official FastAPI tutorial. FastAPI → Express, Pydantic → Zod, SQLModel → Prisma
- * is the usual mapping; here we use better-sqlite3 for a zero-setup DB.
+ * Web framework tutorial — Express (the 2026 JS way)
+ * ==================================================
+ * A single growing server that adds one HTTP concept at a time: routing, request
+ * validation with Zod, file uploads, error handling, and a small DB layer.
+ * Here we use better-sqlite3 for a zero-setup DB.
  *
  * Run:  node tutorial/server.js   →  http://localhost:8000
  */
@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // form bodies
 app.use(cookieParser());
-// CORS for a local frontend (FastAPI used CORSMiddleware).
+// CORS for a local frontend.
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "http://localhost:5173");
   res.set("Access-Control-Allow-Credentials", "true");
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-// ── Zod schemas (the Pydantic equivalent) ──────────────────────────────────
+// ── Zod schemas (request validation) ───────────────────────────────────────
 const Image = z.object({ url: z.string().url(), name: z.string() });
 const Item = z.object({
   name: z.string(),
@@ -37,7 +37,7 @@ const Item = z.object({
   tax: z.number().nullish(),
   images: z.array(Image).nullish(),
 });
-// Validate a body against a schema, or 422 (FastAPI's validation status).
+// Validate a body against a schema, returning 422 on failure.
 const validate = (schema) => (req, res, next) => {
   const r = schema.safeParse(req.body);
   if (!r.success) return res.status(422).json({ detail: r.error.issues });
@@ -48,7 +48,7 @@ const validate = (schema) => (req, res, next) => {
 const MODEL_NAMES = ["alexnet", "resnet", "lenet"];
 const fakeItemsDb = [{ item_name: "Foo" }, { item_name: "Bar" }, { item_name: "Baz" }];
 
-// ── Root: a tiny upload form (HTMLResponse) ─────────────────────────────────
+// ── Root: a tiny upload form (HTML response) ────────────────────────────────
 app.get("/", (_req, res) => {
   res.type("html").send(`<body>
 <form action="/files/uploadfile/" enctype="multipart/form-data" method="post">
@@ -64,7 +64,7 @@ app.get("/items/:item_id", (req, res) => {
   return res.json({ item_id: itemId, short: short === "true" });
 });
 
-// Enum-style path param (FastAPI ModelName).
+// Enum-style path param (fixed set of allowed values).
 app.get("/models/:model_name", (req, res) => {
   if (!MODEL_NAMES.includes(req.params.model_name)) {
     return res.status(422).json({ detail: `model_name must be one of ${MODEL_NAMES.join(", ")}` });
@@ -124,21 +124,21 @@ app.get("/headers/", (req, res) =>
   res.json({ "User-Agent": req.headers["user-agent"] ?? null, "x-token": req.headers["x-token"] ?? null })
 );
 
-// ── File uploads (FastAPI File/UploadFile → multer) ─────────────────────────
+// ── File uploads (multer) ───────────────────────────────────────────────────
 app.post("/files/upload", upload.single("file"), (req, res) => res.json({ file_size: req.file?.buffer.length ?? 0 }));
 app.post("/files/uploadfile/", upload.single("file"), (req, res) =>
   res.json({ filename: req.file?.originalname, content_type: req.file?.mimetype })
 );
-// Form field + file together (FastAPI Form + File).
+// Form field + file together.
 app.post("/files/form-and-file", upload.single("fileb"), (req, res) =>
   res.json({ token: req.body.token, fileb_content_type: req.file?.mimetype })
 );
 
-// ── Error handling (HTTPException + custom handler) ──────────────────────────
+// ── Error handling (status codes + a custom exception) ──────────────────────
 app.get("/errors/not-found/:item_id", (req, res) =>
   res.status(404).json({ detail: `Item with id ${req.params.item_id} not found` })
 );
-// Custom exception → 418, mirroring FastAPI's @app.exception_handler.
+// Custom exception → 418, handled by the error middleware below.
 class CustomException extends Error {
   constructor(value) {
     super("custom");
@@ -149,7 +149,7 @@ app.get("/errors/bad-request", (req, res) => {
   throw new CustomException(Number(req.query.value));
 });
 
-// ── SQLite CRUD (SQLModel Hero → better-sqlite3) ────────────────────────────
+// ── SQLite CRUD (better-sqlite3) ────────────────────────────────────────────
 const db = new Database(`${__dirname}/database.db`);
 db.exec("CREATE TABLE IF NOT EXISTS hero (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, secret_name TEXT NOT NULL, age INTEGER)");
 const HeroIn = z.object({ name: z.string(), secret_name: z.string(), age: z.number().int().nullish() });
@@ -172,7 +172,7 @@ app.get("/heroes/:hero_id", (req, res) => {
 app.patch("/heroes/:hero_id", (req, res) => {
   const hero = db.prepare("SELECT * FROM hero WHERE id = ?").get(Number(req.params.hero_id));
   if (!hero) return res.status(404).json({ detail: "Hero not found" });
-  // Partial update: only the provided fields (exclude_unset equivalent).
+  // Partial update: merge only the fields present in the request body.
   const merged = { ...hero, ...req.body };
   db.prepare("UPDATE hero SET name = ?, secret_name = ?, age = ? WHERE id = ?").run(merged.name, merged.secret_name, merged.age ?? null, hero.id);
   return res.json(db.prepare("SELECT * FROM hero WHERE id = ?").get(hero.id));
@@ -183,7 +183,7 @@ app.delete("/heroes/:hero_id", (req, res) => {
   return res.json({ ok: true });
 });
 
-// Error-handling middleware — catches the CustomException (FastAPI handler analog).
+// Error-handling middleware — catches the CustomException.
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   if (err instanceof CustomException) {
