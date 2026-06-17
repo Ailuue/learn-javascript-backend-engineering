@@ -49,8 +49,7 @@ const handlers = {
       2: { id: 2, name: "Dana", email: "dana@example.com" },
     };
     if (!users[userId]) {
-      // Return an error by passing a { code, details } object — the analog of
-      // Python's context.abort(StatusCode.NOT_FOUND, ...).
+      // Return an error by passing a { code, details } object to the callback.
       callback({ code: grpc.status.NOT_FOUND, details: `User ${userId} not found` });
       return;
     }
@@ -64,7 +63,7 @@ function makeServer() {
   return server;
 }
 
-// bindAsync replaces Python's add_insecure_port + start; it's promise-friendly.
+// bindAsync binds the port and starts the server; wrap it in a promise.
 function startServer(server) {
   return new Promise((resolve, reject) => {
     server.bindAsync(`0.0.0.0:${PORT}`, grpc.ServerCredentials.createInsecure(), (err) =>
