@@ -1,6 +1,5 @@
 // Request-body validation middleware — feeds the body through a Zod schema and
-// returns 422 with the issues on failure, mirroring FastAPI's automatic
-// Pydantic validation + RequestValidationError response.
+// returns 422 with the issues on failure.
 
 function validateBody(schema) {
   return (req, res, next) => {
