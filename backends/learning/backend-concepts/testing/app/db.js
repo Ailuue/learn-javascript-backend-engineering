@@ -1,7 +1,7 @@
 // In-memory SQLite (better-sqlite3) + schema. In-memory keeps the suite
 // self-contained (no Postgres). Tests isolate themselves with SAVEPOINT /
-// ROLLBACK in beforeEach/afterEach — the same transaction-rollback strategy the
-// Python version used, just expressed with savepoints on one shared connection.
+// ROLLBACK in beforeEach/afterEach — a transaction-rollback strategy on one
+// shared connection.
 
 const Database = require("better-sqlite3");
 
