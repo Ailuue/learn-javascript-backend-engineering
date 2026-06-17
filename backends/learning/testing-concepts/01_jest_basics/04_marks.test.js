@@ -1,12 +1,12 @@
 /**
  * Skipping, Conditional Skips & Expected Failures
  * ===============================================
- * pytest uses marks (skip / skipif / xfail / custom). Jest expresses the same
- * intents with test modifiers and plain JS conditions:
+ * Jest expresses skip / conditional-skip / expected-failure intents with test
+ * modifiers and plain JS conditions:
  *
- *   skip            → test.skip(...)
- *   skipif          → (cond ? test.skip : test)(...)   — pick the modifier
- *   xfail           → test.failing(...)   (Jest 29.6+: passes iff the body fails)
+ *   skip                 → test.skip(...)
+ *   conditional skip     → (cond ? test.skip : test)(...)   — pick the modifier
+ *   expected failure     → test.failing(...)   (Jest 29.6+: passes iff the body fails)
  *   xfail strict    → test.failing is already strict (an unexpected PASS fails)
  *   custom marks    → filter by name with `jest -t "slow"` or group with describe
  *
@@ -43,7 +43,7 @@ testIfModernNode("uses a feature that needs Node 18+", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 3. test.failing — document a known failure (pytest's xfail)
+// 3. test.failing — document a known failure (an expected-failure test)
 //    The test is reported as passing while the body keeps failing. The moment
 //    the underlying bug is fixed, test.failing FAILS (an unexpected pass), which
 //    reminds you to remove the marker — the same safety as xfail(strict=True).
