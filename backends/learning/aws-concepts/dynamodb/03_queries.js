@@ -8,8 +8,8 @@ const {
 const { config } = require("../helpers");
 
 // The Document client (lib-dynamodb) marshals plain JS objects to/from attribute
-// values automatically — the JS analog of boto3's `resource("dynamodb")`. You
-// write `{ user_id: "u1" }` instead of `{ user_id: { S: "u1" } }`.
+// values automatically, so you write `{ user_id: "u1" }` instead of
+// `{ user_id: { S: "u1" } }`.
 const base = new DynamoDBClient(config);
 const doc = DynamoDBDocumentClient.from(base);
 const TABLE = "events";
