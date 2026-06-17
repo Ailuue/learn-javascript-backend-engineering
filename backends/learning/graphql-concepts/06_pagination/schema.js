@@ -8,9 +8,9 @@
  *   B. Cursor pagination (Relay Connection) — stable pages even under concurrent
  *      mutations, because each page is anchored to an opaque cursor, not a count.
  *
- * The JS ecosystem follows the same Relay Connection spec as Strawberry's
- * `strawberry.relay`: edges (node + cursor), PageInfo, `first`/`after`. This
- * section implements it by hand so the mechanics are visible.
+ * Cursor pagination here follows the Relay Connection spec: edges (node +
+ * cursor), PageInfo, `first`/`after`. This section implements it by hand so the
+ * mechanics are visible.
  */
 
 const { makeExecutableSchema } = require("@graphql-tools/schema");
