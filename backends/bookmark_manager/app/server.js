@@ -1,4 +1,4 @@
-// Network entry point — the JS analog of running `uvicorn app.main:app`.
+// Network entry point — imports the app factory and starts listening.
 // Schema is managed by Prisma Migrate: `npx prisma migrate deploy` before start.
 
 const app = require("./main");
