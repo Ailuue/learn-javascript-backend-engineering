@@ -1,9 +1,8 @@
-// Background worker — the JS analog of running `celery worker`. Processes
-// click-increment jobs off the BullMQ queue.
+// Background worker — processes click-increment jobs off the BullMQ queue.
 
 const { Worker } = require("bullmq");
 
-const { CLICK_QUEUE, redisConnection } = require("./celery_app");
+const { CLICK_QUEUE, redisConnection } = require("./queue");
 const { incrementClick } = require("./tasks");
 
 const worker = new Worker(
