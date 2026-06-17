@@ -1,9 +1,8 @@
 /**
  * Pool vs Client, and the Release Trap
  * =====================================
- * (The Python version covered SQLAlchemy's expire_on_commit / identity map.
- * Those are ORM features `pg` doesn't have; the equivalent lifecycle lesson in
- * node-postgres is pool.query vs pool.connect — and remembering to release.)
+ * The key lifecycle lesson in node-postgres is pool.query vs pool.connect — and
+ * remembering to release a connection you check out.
  *
  *   pool.query(...)   grabs a connection, runs ONE statement, releases it
  *                     automatically. Each call may use a different connection,
