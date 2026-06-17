@@ -1,6 +1,5 @@
-// Shared Postgres helpers (node-postgres). The 2026 Node analog of psycopg2 is
-// `pg`: a `Client` is a single connection; `Pool` manages many (see
-// async_sqlalchemy/). Everything is async.
+// Shared Postgres helpers (node-postgres). A `Client` is a single connection;
+// `Pool` manages many (see async-postgres/). Everything is async.
 
 const { Client } = require("pg");
 
