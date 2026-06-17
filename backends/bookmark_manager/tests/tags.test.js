@@ -2,15 +2,15 @@ const { api, defaultUser, otherUser } = require("./setup");
 
 test("create tag", async () => {
   const { headers } = await defaultUser();
-  const res = await api().post("/tags/").set(headers).send({ name: "python" });
+  const res = await api().post("/tags/").set(headers).send({ name: "javascript" });
   expect(res.status).toBe(201);
-  expect(res.body.name).toBe("python");
+  expect(res.body.name).toBe("javascript");
 });
 
 test("create tag idempotent", async () => {
   const { headers } = await defaultUser();
-  const first = (await api().post("/tags/").set(headers).send({ name: "python" })).body;
-  const second = (await api().post("/tags/").set(headers).send({ name: "python" })).body;
+  const first = (await api().post("/tags/").set(headers).send({ name: "javascript" })).body;
+  const second = (await api().post("/tags/").set(headers).send({ name: "javascript" })).body;
   expect(first.id).toBe(second.id);
 });
 
