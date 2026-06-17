@@ -1,5 +1,5 @@
 # A plain Postgres for the pg-based folders (transactions, indexes, window_functions,
-# n_plus_one, full_text_search, normalization, async_sqlalchemy). Create the
+# n_plus_one, full_text_search, normalization, async-postgres). Create the
 # per-folder database name from each folder's .env.example, or just reuse one db.
 # (pgvector-demo has its own compose with the pgvector image.)
 services:
