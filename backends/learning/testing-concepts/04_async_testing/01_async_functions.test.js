@@ -3,7 +3,7 @@
  * =======================
  * In Node, async is the default for I/O — and Jest handles it natively. Return
  * the promise (or use an `async` test body and `await`); Jest waits for it.
- * No pytest-asyncio equivalent needed — it's built in.
+ * Nothing extra to install — it's built in.
  *
  * Key tools:
  *   - async/await in the test body
