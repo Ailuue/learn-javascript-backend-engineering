@@ -1,4 +1,4 @@
-// Password hashing and JWT helpers — the JS analog of security.py.
+// Password hashing and JWT helpers.
 
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
@@ -24,8 +24,8 @@ function createAccessToken(subject, expiresMinutes = null) {
   );
 }
 
-// Returns { sub, jti, exp } on success or null on any failure — mirrors
-// decode_access_token returning Optional[TokenPayload].
+// Returns { sub, jti, exp } on success or null on any failure (invalid
+// signature, expired, malformed).
 function decodeAccessToken(token) {
   const settings = getSettings();
   try {
