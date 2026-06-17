@@ -10,8 +10,8 @@
  *   401 Unauthorized → missing / expired / invalid token
  *   403 Forbidden    → valid token but not allowed (see 03_rbac.js)
  *
- * Express equivalent of FastAPI's Depends(get_current_user): a middleware that
- * verifies the Bearer token and attaches `req.user`.
+ * Authentication is an Express middleware that verifies the Bearer token and
+ * attaches `req.user`.
  *
  * Run:  node 02_auth_flow.js
  * Test: curl -sX POST localhost:8000/auth/login -H 'Content-Type: application/json' \
