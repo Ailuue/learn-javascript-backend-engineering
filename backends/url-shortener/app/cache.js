@@ -1,6 +1,5 @@
-// Redis cache helpers for the hot redirect path — the JS analog of cache.py.
-// `init()` is called once at startup (mirroring the FastAPI lifespan); the rest
-// assume a connection exists.
+// Redis cache helpers for the hot redirect path. `init()` is called once at
+// startup; the rest assume a connection exists.
 
 const Redis = require("ioredis");
 
