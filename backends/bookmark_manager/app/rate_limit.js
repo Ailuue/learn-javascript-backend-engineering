@@ -1,7 +1,6 @@
-// Rate limiting — the JS analog of rate_limit.py (slowapi). Each call returns a
-// fresh express-rate-limit middleware. We set skipFailedRequests so that, like
-// slowapi (whose limit check runs inside the handler, after request
-// validation), requests rejected before the handler don't consume a slot.
+// Rate limiting. Each call returns a fresh express-rate-limit middleware. We set
+// skipFailedRequests so that requests rejected before the handler (e.g. failed
+// validation) don't consume a slot.
 
 const rateLimit = require("express-rate-limit");
 
