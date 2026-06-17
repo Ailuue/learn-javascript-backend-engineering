@@ -1,4 +1,4 @@
-// Tag routes — the JS analog of routers/tags.py.
+// Tag routes
 
 const express = require("express");
 
