@@ -1,6 +1,6 @@
-// Express application factory — the JS analog of main.py. Builds and exports the
-// configured app (CORS, body parsing, routers, health, error handling). The
-// network listen happens in server.js, mirroring how uvicorn ran main:app.
+// Express application factory. Builds and exports the configured app (CORS, body
+// parsing, routers, health, error handling). The network listen happens in
+// server.js, keeping the app importable for tests.
 
 const express = require("express");
 const cors = require("cors");
