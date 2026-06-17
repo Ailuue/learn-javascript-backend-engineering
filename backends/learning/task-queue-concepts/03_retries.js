@@ -5,8 +5,7 @@
  * connection times out, a rate limit kicks in. BullMQ retries a job whenever its
  * processor throws, as long as attempts remain.
  *
- * Where Celery splits this into "declarative autoretry_for" vs "manual
- * self.retry()", BullMQ has one model — per-job options:
+ * BullMQ has one retry model — per-job options:
  *
  *   queue.add("job", data, {
  *     attempts: 5,                              // total tries (1 initial + 4 retries)
