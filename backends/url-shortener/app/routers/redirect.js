@@ -1,4 +1,4 @@
-// Slug → redirect with click tracking — the JS analog of routers/redirect.py.
+// Slug → redirect with click tracking
 
 const express = require("express");
 
