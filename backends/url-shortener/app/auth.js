@@ -1,5 +1,5 @@
-// Password hashing, JWT helpers, and the auth middleware — the JS analog of
-// auth.py. Express middleware replace FastAPI's Depends(get_current_user).
+// Password hashing, JWT helpers, and the auth middleware that loads the current
+// user from the bearer token.
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
