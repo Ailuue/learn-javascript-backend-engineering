@@ -4,9 +4,8 @@
 // The pattern being tested — auth middleware + ownership checks + Zod validation —
 // is identical regardless of the mechanism.
 //
-// Note vs the Python version: FastAPI returned 422 for a *missing* required
-// header. Here we take the idiomatic route — a missing/unknown user is 401,
-// and 422 is reserved for body validation failures.
+// Status-code convention: a missing/unknown user is 401, and 422 is reserved for
+// body validation failures.
 
 const express = require("express");
 const { db } = require("./db");
