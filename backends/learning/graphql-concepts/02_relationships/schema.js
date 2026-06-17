@@ -9,9 +9,8 @@
  * resolvers map. `Post.author` runs once per Post in the response; `Author.posts`
  * runs once per Author. The parent object is the first argument.
  *
- * Note on "private" fields: Strawberry uses `strawberry.Private[str]` to carry a
- * foreign key without exposing it. In schema-first JS the equivalent is simply
- * *not listing* the field in the SDL. `authorId` lives on the parent object (so
+ * Note on "private" fields: to carry a foreign key without exposing it, simply
+ * *don't list* the field in the SDL. `authorId` lives on the parent object (so
  * resolvers can use it) but isn't in the schema, so clients can't request it.
  */
 
