@@ -2,8 +2,8 @@
  * Tests for 01_schema_basics.
  *
  * graphql-js schemas run without an HTTP server: `graphqlSync({ schema, source })`
- * (or async `graphql(...)`) is the direct analog of Strawberry's
- * `schema.execute_sync()`. The result has `.data` and `.errors`.
+ * (or async `graphql(...)`) executes a query in-process. The result has `.data`
+ * and `.errors`.
  */
 
 const { graphqlSync } = require("graphql");
