@@ -1,6 +1,6 @@
-// Knex configuration. Knex is the 2026 JS analog of Alembic: imperative
-// migrations with explicit up()/down() functions and a CLI to apply/roll back.
-// SQLite (better-sqlite3) keeps the demo self-contained.
+// Knex configuration. Knex does imperative migrations with explicit up()/down()
+// functions and a CLI to apply/roll back. SQLite (better-sqlite3) keeps the demo
+// self-contained.
 
 const path = require("path");
 
