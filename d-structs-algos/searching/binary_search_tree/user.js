@@ -36,7 +36,7 @@ class User {
   }
 }
 
-// Deterministic PRNG so test runs are reproducible (replaces Python's random.seed).
+// Deterministic PRNG so test runs are reproducible (a seeded random source).
 function mulberry32(seed) {
   return function () {
     seed |= 0;
