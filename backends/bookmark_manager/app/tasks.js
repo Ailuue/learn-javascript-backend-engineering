@@ -1,12 +1,12 @@
-// Background tasks — the JS analog of tasks.py.
+// Background tasks.
 //
 // `fetchBookmarkMetadata` is the worker-side logic; its `.delay()` method
-// enqueues a job (mirroring Celery's `task.delay(...)`). Tests stub `.delay` so
-// no broker is needed. `flushBookmarkClicks` is the write-behind flush, called
-// directly by tests and by the scheduled worker.
+// enqueues a job. Tests stub `.delay` so no broker is needed.
+// `flushBookmarkClicks` is the write-behind flush, called directly by tests and
+// by the scheduled worker.
 
 const prisma = require("./database");
-const { getMetadataQueue } = require("./celery_app");
+const { getMetadataQueue } = require("./queue");
 const { getRedis } = require("./redis_client");
 const { makeLogger } = require("./logging_config");
 
@@ -26,8 +26,8 @@ async function fetchBookmarkMetadata(bookmarkId, url) {
       signal: AbortSignal.timeout(5000),
     });
   } catch {
-    // Network error — Celery would autoretry; BullMQ retries are configured on
-    // the worker, so here we just give up on this attempt.
+    // Network error — BullMQ retries are configured on the worker, so here we
+    // just give up on this attempt.
     return;
   }
 
@@ -51,7 +51,7 @@ async function fetchBookmarkMetadata(bookmarkId, url) {
   }
 }
 
-// Enqueue side — the JS analog of Celery's `fetch_bookmark_metadata.delay(...)`.
+// Enqueue side — `.delay()` adds a job to the queue for the worker to pick up.
 fetchBookmarkMetadata.delay = async (bookmarkId, url) =>
   getMetadataQueue().add("fetch", { bookmarkId, url });
 
