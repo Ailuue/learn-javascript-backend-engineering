@@ -1,9 +1,9 @@
 /**
  * Schema setup — enable the pgvector extension and create the tables.
  *
- * (The Python version used an Alembic migration; here it's one raw-SQL script,
- * since the only notable bit is `CREATE EXTENSION vector` + a vector(768) column.
- * You could equally manage this with Knex — see db-migration-demo.)
+ * (It's one raw-SQL script, since the only notable bit is `CREATE EXTENSION
+ * vector` + a vector(768) column. You could equally manage this with Knex —
+ * see db-migration-demo.)
  *
  * nomic-embed-text produces 768-dimensional vectors.
  *
