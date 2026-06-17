@@ -1,4 +1,4 @@
-// Category routes — the JS analog of routers/categories.py.
+// Category routes
 
 const express = require("express");
 
