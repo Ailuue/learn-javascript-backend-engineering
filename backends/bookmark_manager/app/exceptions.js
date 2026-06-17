@@ -1,12 +1,11 @@
-// HTTP error type + centralized error handling — the JS analog of exceptions.py
-// plus FastAPI's HTTPException.
+// HTTP error type + centralized error handling.
 
 const { makeLogger } = require("./logging_config");
 
 const logger = makeLogger("app.exceptions");
 
-// Raised inside handlers to short-circuit with a status code and detail, the way
-// FastAPI's HTTPException does. `headers` lets auth routes set WWW-Authenticate.
+// Raised inside handlers to short-circuit with a status code and detail.
+// `headers` lets auth routes set WWW-Authenticate.
 class HttpError extends Error {
   constructor(statusCode, detail, headers = null) {
     super(detail);
@@ -23,8 +22,7 @@ function asyncHandler(fn) {
 }
 
 // Express error middleware — must be registered last. Maps HttpError, Prisma
-// unique-constraint violations (P2002 ≈ SQLAlchemy IntegrityError), and
-// everything else (500), mirroring register_exception_handlers.
+// unique-constraint violations (P2002 → 409), and everything else (500).
 function errorHandler(err, req, res, _next) {
   if (err instanceof HttpError) {
     if (err.headers) res.set(err.headers);
