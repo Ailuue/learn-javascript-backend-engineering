@@ -1,6 +1,5 @@
-// Background worker — the JS analog of running `celery worker` + `celery beat`.
-// Processes metadata-fetch jobs and runs the write-behind click flush on a
-// repeatable 10-minute schedule (Celery Beat's `flush-bookmark-clicks` entry).
+// Background worker — processes metadata-fetch jobs and runs the write-behind
+// click flush on a repeatable 10-minute schedule.
 
 const { Worker, Queue } = require("bullmq");
 
@@ -8,7 +7,7 @@ const {
   METADATA_QUEUE,
   CLICK_FLUSH_QUEUE,
   redisConnection,
-} = require("./celery_app");
+} = require("./queue");
 const { fetchBookmarkMetadata, flushBookmarkClicks } = require("./tasks");
 const { makeLogger } = require("./logging_config");
 
@@ -25,7 +24,7 @@ const flushWorker = new Worker(CLICK_FLUSH_QUEUE, async () => flushBookmarkClick
   connection,
 });
 
-// Schedule the flush every 10 minutes (Celery Beat's crontab(minute="*/10")).
+// Schedule the flush every 10 minutes (cron: every-10th-minute).
 const flushQueue = new Queue(CLICK_FLUSH_QUEUE, { connection });
 flushQueue.add(
   "flush",
