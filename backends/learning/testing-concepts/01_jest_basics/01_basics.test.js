@@ -4,9 +4,8 @@
  * Jest discovers tests by scanning for files matching `*.test.js` (configured in
  * the root jest.config.js), then runs each `test(...)` / `it(...)` block.
  *
- * Unlike Python's pytest, assertions go through the `expect(...)` API with
- * matchers (`.toBe`, `.toEqual`, `.toThrow`, …) rather than a bare `assert`.
- * Matchers produce the rich diff output on failure.
+ * Assertions go through the `expect(...)` API with matchers (`.toBe`, `.toEqual`,
+ * `.toThrow`, …). Matchers produce the rich diff output on failure.
  *
  * Discovery rules (this repo): files named `*.test.js`. Group with `describe`.
  *
