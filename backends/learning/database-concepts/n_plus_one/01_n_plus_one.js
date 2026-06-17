@@ -6,8 +6,8 @@
  * it's 6; with 500 it's 501. It's silent: the code looks fine and the results
  * are correct, but round-trips grow linearly with your data.
  *
- * ORMs (SQLAlchemy lazy loading, Prisma, Drizzle) hide this behind property
- * access. Here we use raw `pg`, so each query is an explicit call the counter sees.
+ * ORMs (Prisma, Drizzle) hide this behind lazy-loaded property access. Here we
+ * use raw `pg`, so each query is an explicit call the counter sees.
  *
  * Run:  docker compose up -d (Postgres)  →  node 01_n_plus_one.js
  */
