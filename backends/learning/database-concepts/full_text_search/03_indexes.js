@@ -10,7 +10,7 @@
  * GIN = faster reads / slower writes (best for mostly-static text).
  * EXPLAIN ANALYZE shows Seq Scan → Bitmap Index Scan as you add the column + index.
  *
- * The SQL is identical to the Python version. Run: node 03_indexes.js
+ * Run: node 03_indexes.js
  */
 
 const db = require("./db");
