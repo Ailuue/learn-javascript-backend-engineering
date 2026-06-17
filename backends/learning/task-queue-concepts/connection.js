@@ -1,10 +1,9 @@
 // Shared Redis connection config.
 //
 // Every concept file imports `connection` from here so they all talk to the
-// same Redis instance. BullMQ is the Node equivalent of Celery: a Redis-backed
-// queue with worker processes. Unlike Celery there is no separate "result
-// backend" — BullMQ stores job state and return values in the same Redis under
-// per-queue keys.
+// same Redis instance. BullMQ is a Redis-backed queue with worker processes;
+// there is no separate "result backend" — it stores job state and return values
+// in the same Redis under per-queue keys.
 //
 //   Producer (queue.add)  →  Redis (queue)  →  Worker (processor)  →  Redis (job result)
 //
