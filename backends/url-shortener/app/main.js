@@ -1,6 +1,5 @@
-// Express application factory — the JS analog of main.py. The redirect router is
-// mounted last because its `/:shortCode` route would otherwise shadow /urls,
-// /auth, and /health.
+// Express application factory. The redirect router is mounted last because its
+// `/:shortCode` route would otherwise shadow /urls, /auth, and /health.
 
 const express = require("express");
 
