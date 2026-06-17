@@ -13,7 +13,7 @@
  *   websearch_to_tsquery   web syntax: "quoted phrases", OR, -minus
  *   phraseto_tsquery  all words in order, adjacent
  *
- * The SQL is identical to the Python version. Run: node 01_basics.js
+ * Run: node 01_basics.js
  */
 
 const db = require("./db");
