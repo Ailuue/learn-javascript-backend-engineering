@@ -1,14 +1,13 @@
 /**
  * Fixing N+1: Batch IN-query vs JOIN
  * ===================================
- * SQLAlchemy offers `selectinload` and `joinedload`; the underlying SQL is what
- * matters, and both have direct raw-SQL equivalents:
+ * There are two standard fixes, and the underlying SQL is what matters:
  *
- *   Batch IN-query (≈ selectinload) — 2 queries: parents, then
+ *   Batch IN-query — 2 queries: parents, then
  *     SELECT * FROM books WHERE author_id = ANY($ids). Group children in JS.
  *
- *   JOIN (≈ joinedload) — 1 query with a LEFT JOIN; parents and children arrive
- *     together. You must collapse the duplicated parent rows in JS.
+ *   JOIN — 1 query with a LEFT JOIN; parents and children arrive together.
+ *     You must collapse the duplicated parent rows in JS.
  *
  * Both turn N+1 into a constant number of queries. The nested version adds one
  * more IN-query per level (authors → books → tags = 3 queries).
