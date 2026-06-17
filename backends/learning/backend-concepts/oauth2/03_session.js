@@ -44,7 +44,7 @@ function upsertUser(gh) {
 const createToken = (user) =>
   jwt.sign({ sub: user.id, name: user.name }, SECRET_KEY, { algorithm: "HS256", expiresIn: TOKEN_TTL_SECONDS });
 
-// Reusable auth middleware (the FastAPI Depends(current_user) equivalent).
+// Reusable auth middleware that loads the current user from the token.
 function currentUser(req, res, next) {
   const [scheme, token] = (req.headers.authorization || "").split(" ");
   if (scheme !== "Bearer" || !token) return res.status(401).json({ detail: "Missing bearer token" });
