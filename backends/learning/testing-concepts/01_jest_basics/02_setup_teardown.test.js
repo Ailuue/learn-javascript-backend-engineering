@@ -1,18 +1,17 @@
 /**
  * Setup / Teardown & "Fixtures"
  * =============================
- * pytest has first-class fixtures (injected by parameter name). Jest doesn't —
- * the idiomatic equivalents are:
+ * Jest builds shared setup out of a few hooks plus plain helper functions:
  *
- *   - beforeEach / afterEach  → per-test setup + teardown (function scope)
- *   - beforeAll / afterAll    → once per file/describe block (module/class scope)
+ *   - beforeEach / afterEach  → per-test setup + teardown
+ *   - beforeAll / afterAll    → once per file/describe block
  *   - factory functions       → reusable "make me one of these" helpers
  *   - describe blocks         → scope setup to a group of tests
  *
- * Scope maps directly to pytest's fixture scopes:
- *   beforeEach (in a file)         ≈ function scope
- *   beforeAll (in a describe)      ≈ class scope
- *   beforeAll (top level)          ≈ module scope
+ * Where a hook lives controls how often it runs:
+ *   beforeEach (in a file)         → before every test
+ *   beforeAll (in a describe)      → once for that group
+ *   beforeAll (top level)          → once for the whole file
  *
  * Run:
  *   npx jest backends/learning/testing-concepts/01_jest_basics/02_setup_teardown
@@ -45,7 +44,7 @@ test("mutation does not bleed — each call is a fresh object", () => {
 
 // ---------------------------------------------------------------------------
 // 2. beforeEach / afterEach — setup before each test, teardown after
-//    afterEach runs even if the test fails (like a pytest yield-fixture).
+//    afterEach runs even if the test fails, so cleanup always happens.
 // ---------------------------------------------------------------------------
 
 describe("tracked list (beforeEach/afterEach)", () => {
@@ -110,7 +109,7 @@ test("admin has permissions and inherits base fields", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 5. test.each — data-driven cases (pytest's parametrized fixture)
+// 5. test.each — data-driven cases (one test body, many input rows)
 // ---------------------------------------------------------------------------
 
 test.each(["alice@example.com", "BOB@EXAMPLE.COM", "carol+tag@domain.co"])(
