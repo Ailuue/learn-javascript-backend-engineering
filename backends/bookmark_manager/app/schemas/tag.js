@@ -1,4 +1,4 @@
-// Zod schema for tags — the JS analog of schemas/tag.py.
+// Zod schema for tags
 
 const { z } = require("zod");
 
