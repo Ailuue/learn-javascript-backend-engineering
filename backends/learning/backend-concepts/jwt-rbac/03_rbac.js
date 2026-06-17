@@ -8,8 +8,7 @@
  *   viewer (0) → read    editor (1) → read+write    admin (2) → read+write+delete
  *
  * The key idea is a *middleware factory*: `requireRole("admin")` returns an
- * Express middleware that rejects anyone below that level — the analog of
- * FastAPI's `require_role` dependency factory.
+ * Express middleware that rejects anyone below that level.
  *
  *   401 → no/invalid/expired token    403 → valid token, role too low
  *
