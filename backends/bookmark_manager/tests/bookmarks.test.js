@@ -21,12 +21,12 @@ test("create bookmark with tags", async () => {
       title: "Foo Page",
       description: "A page about foo",
       favorite: true,
-      tags: ["python", "tutorial"],
+      tags: ["javascript", "tutorial"],
     });
   expect(res.status).toBe(201);
   expect(res.body.title).toBe("Foo Page");
   expect(res.body.favorite).toBe(true);
-  expect(new Set(res.body.tags.map((t) => t.name))).toEqual(new Set(["python", "tutorial"]));
+  expect(new Set(res.body.tags.map((t) => t.name))).toEqual(new Set(["javascript", "tutorial"]));
 });
 
 test("create bookmark invalid url", async () => {
