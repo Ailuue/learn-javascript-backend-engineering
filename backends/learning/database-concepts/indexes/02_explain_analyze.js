@@ -10,7 +10,7 @@
  *   Index Cond:  resolved BY the index → no wasted reads
  *
  * Key question: are estimated rows close to actual rows? A big gap = stale
- * statistics → run ANALYZE. The SQL is unchanged from the Python version.
+ * statistics → run ANALYZE.
  *
  * Run:  docker compose up -d (Postgres)  →  node 02_explain_analyze.js
  */
