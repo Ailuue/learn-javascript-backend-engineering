@@ -1,7 +1,7 @@
 /**
- * Dynamic mock behaviour (pytest's side_effect)
- * =============================================
- * pytest's `side_effect` maps to a family of jest.fn helpers:
+ * Dynamic mock behaviour
+ * ======================
+ * A family of jest.fn helpers makes a mock behave differently per call:
  *
  *   sequence of values   → mockReturnValueOnce / mockResolvedValueOnce (chained)
  *   throw / reject       → mockImplementation(() => { throw }) / mockRejectedValue
