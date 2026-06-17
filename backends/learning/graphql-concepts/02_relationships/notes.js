@@ -8,9 +8,9 @@
  * It receives the parent object and loads related data. Runs once per parent.
  *
  * --- "PRIVATE" FIELDS ---
- * Strawberry hides a foreign key with `strawberry.Private[str]`. In SDL you just
- * don't declare the field — `authorId` lives on the parent object for resolvers
- * to use, but isn't in the schema, so clients can't select it.
+ * To hide a foreign key from clients, just don't declare it in the SDL —
+ * `authorId` lives on the parent object for resolvers to use, but isn't in the
+ * schema, so clients can't select it.
  *
  * --- THE N+1 PROBLEM ---
  *   query { posts { title author { name } } }
