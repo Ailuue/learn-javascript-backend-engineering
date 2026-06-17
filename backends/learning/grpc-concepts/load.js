@@ -1,10 +1,9 @@
 // Shared proto loader.
 //
-// The big difference from Python's gRPC: there is **no codegen step**. Python
-// runs `grpc_tools.protoc` to emit *_pb2.py files you import. In Node the
-// idiomatic approach (2026) is `@grpc/proto-loader`, which parses the .proto at
-// runtime and hands back the service/message definitions directly. Edit the
-// .proto, restart — no build script, no generated files to gitignore.
+// There is **no codegen step**. The idiomatic 2026 approach is
+// `@grpc/proto-loader`, which parses the .proto at runtime and hands back the
+// service/message definitions directly. Edit the .proto, restart — no build
+// script, no generated files to gitignore.
 //
 // (A codegen path exists too — `grpc-tools` + `ts-proto` for typed stubs — but
 // dynamic loading is the simplest and most common choice for plain JS.)
