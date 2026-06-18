@@ -1,0 +1,622 @@
+[
+  {
+    "id": "responses",
+    "label": "Responses",
+    "topics": [
+      {
+        "id": "stream-data",
+        "number": "01",
+        "title": "Stream Data",
+        "description": "Stream a response by writing chunks with res.write() as they're produced, then res.end(). Ideal for large files, SSE, and real-time data.",
+        "docPath": "https://nodejs.org/api/http.html#responsewritechunk-encoding-callback",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/stream/text",
+            "label": "Stream plain text chunks",
+            "fields": [],
+            "streaming": true
+          },
+          {
+            "method": "GET",
+            "path": "/stream/sse",
+            "label": "Stream SSE events",
+            "fields": [],
+            "streaming": true
+          }
+        ]
+      },
+      {
+        "id": "response-directly",
+        "number": "04",
+        "title": "Return a Response Directly",
+        "description": "Send a fully-formed response yourself: set the Content-Type and call res.send() / res.json(). Use it when you need control over headers, status, or body the framework wouldn't set automatically.",
+        "docPath": "https://expressjs.com/en/api.html#res.send",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/response-directly/json",
+            "label": "JSON with custom header",
+            "fields": []
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/response-directly/xml",
+            "label": "Raw XML response",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "custom-response",
+        "number": "05",
+        "title": "Custom Response",
+        "description": "Change the response type with res.type() + res.send(): HTML, plain text, redirects, files — each sets the appropriate Content-Type.",
+        "docPath": "https://expressjs.com/en/api.html#res.type",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/custom/html",
+            "label": "HTML response",
+            "fields": []
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/custom/text",
+            "label": "Plain text response",
+            "fields": []
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/custom/redirect",
+            "label": "Redirect → /advanced/custom/text",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "additional-responses",
+        "number": "06",
+        "title": "Documenting Multiple Responses",
+        "description": "Document every response shape an endpoint can return (200 vs 404) so clients know what to expect for each status code. Describe them in your OpenAPI spec.",
+        "docPath": "https://swagger.io/docs/specification/describing-responses/",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/items/{item_id}",
+            "label": "Returns the item (200) or an error (404)",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "item-1 or missing-id",
+                "required": true
+              }
+            ]
+          }
+        ],
+        "externalLinks": [
+          {
+            "label": "OpenAPI: describing responses",
+            "href": "https://swagger.io/docs/specification/describing-responses/"
+          }
+        ]
+      },
+      {
+        "id": "response-cookies",
+        "number": "07",
+        "title": "Response Cookies",
+        "description": "Set and clear cookies with res.cookie() / res.clearCookie(). They add Set-Cookie headers without affecting your JSON body.",
+        "docPath": "https://expressjs.com/en/api.html#res.cookie",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/advanced/cookies/set",
+            "label": "Set session_token cookie",
+            "fields": [
+              {
+                "name": "value",
+                "in": "query",
+                "type": "text",
+                "placeholder": "my-session-value"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/cookies/read",
+            "label": "Read session_token cookie",
+            "fields": [],
+            "note": "Set the cookie first, then read it. Browser must be on same origin as the backend."
+          },
+          {
+            "method": "POST",
+            "path": "/advanced/cookies/delete",
+            "label": "Delete session_token cookie",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "response-headers",
+        "number": "08",
+        "title": "Response Headers",
+        "description": "Add custom headers to responses with res.set() (or res.header()). They appear in the response for clients to read.",
+        "docPath": "https://expressjs.com/en/api.html#res.set",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/headers/custom",
+            "label": "X-Custom-Header + X-Request-Id",
+            "fields": []
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/headers/from-response-object",
+            "label": "Headers via res.set()",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "response-change-status",
+        "number": "09",
+        "title": "Response - Change Status Code",
+        "description": "Decide the status code at runtime with res.status() before sending. Default to one code and override it based on your logic.",
+        "docPath": "https://expressjs.com/en/api.html#res.status",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/status/dynamic",
+            "label": "Dynamic 200 or 404 based on query param",
+            "fields": [
+              {
+                "name": "found",
+                "in": "query",
+                "type": "select",
+                "options": [
+                  "true",
+                  "false"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "additional-status-codes",
+        "number": "03",
+        "title": "Additional Status Codes",
+        "description": "Return different status codes depending on logic — e.g. 200 when a record already exists, 201 when you create it on an upsert endpoint.",
+        "docPath": "https://expressjs.com/en/api.html#res.status",
+        "endpoints": [
+          {
+            "method": "PUT",
+            "path": "/advanced/items/{item_id}",
+            "label": "200 if exists, 201 if created (try \"item-1\" vs \"new-item\")",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "item-1",
+                "required": true
+              },
+              {
+                "name": "name",
+                "in": "query",
+                "type": "text",
+                "placeholder": "Widget"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "path-ops",
+    "label": "Routes",
+    "topics": [
+      {
+        "id": "path-op-advanced-config",
+        "number": "02",
+        "title": "Advanced Route Configuration",
+        "description": "Give routes stable names for generated clients, hide internal routes from your published docs, or attach custom metadata to the OpenAPI spec.",
+        "docPath": "https://expressjs.com/en/guide/routing.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/path-config",
+            "label": "Custom operationId + extra metadata",
+            "fields": []
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/schema-info",
+            "label": "Info about the hidden endpoint",
+            "fields": []
+          }
+        ],
+        "externalLinks": [
+          {
+            "label": "OpenAPI Specification",
+            "href": "https://swagger.io/specification/"
+          },
+          {
+            "label": "Express routing guide",
+            "href": "https://expressjs.com/en/guide/routing.html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deps-security",
+    "label": "Middleware & Security",
+    "topics": [
+      {
+        "id": "advanced-dependencies",
+        "number": "10",
+        "title": "Parameterized Middleware",
+        "description": "Build configurable middleware with a factory function: call it with options (like minLength) and it returns the middleware, letting you tune behavior at each mount point.",
+        "docPath": "https://expressjs.com/en/guide/writing-middleware.html#middleware-configurable",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/deps/short",
+            "label": "queryChecker(minLength: 3)",
+            "fields": [
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "hi (too short) or hello"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/deps/long",
+            "label": "queryChecker(minLength: 10)",
+            "fields": [
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "short vs longenough"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "http-basic-auth",
+        "number": "13",
+        "title": "HTTP Basic Auth",
+        "description": "Read the Authorization header, decode the Base64 user:pass, and compare with crypto.timingSafeEqual() to avoid timing attacks. Send 401 + WWW-Authenticate when it fails.",
+        "docPath": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/basic-auth",
+            "label": "Basic Auth (admin / password123)",
+            "fields": [
+              {
+                "name": "authorization",
+                "in": "header",
+                "type": "text",
+                "placeholder": "Basic YWRtaW46cGFzc3dvcmQxMjM="
+              }
+            ],
+            "note": "Send Authorization: Basic <base64(admin:password123)>. The value above is pre-encoded."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "request-data",
+    "label": "Request & Data",
+    "topics": [
+      {
+        "id": "request-directly",
+        "number": "14",
+        "title": "Using the Request Directly",
+        "description": "Reach into the raw request object — req.method, req.originalUrl, req.headers, req.query, client IP — when you need data beyond your typed params.",
+        "docPath": "https://expressjs.com/en/api.html#req",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/request-info",
+            "label": "Inspect request metadata",
+            "fields": []
+          },
+          {
+            "method": "POST",
+            "path": "/advanced/request-body-bytes",
+            "label": "Read raw body bytes",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\"raw\": \"anything here\"}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "plain-objects",
+        "number": "15",
+        "title": "Plain Object Bodies",
+        "description": "Use plain JS objects or classes for request/response bodies and validate them with Zod. Handy when you already model your domain with classes.",
+        "docPath": "https://zod.dev/?id=objects",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/advanced/dataclasses/item",
+            "label": "Create item (plain object)",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Widget\",\n  \"price\": 9.99,\n  \"tags\": [\"cool\"]\n}"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/advanced/dataclasses/items",
+            "label": "List items (array of objects)",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "base64-bytes",
+        "number": "32",
+        "title": "JSON with Bytes as Base64",
+        "description": "Binary data travels through JSON as Base64 strings. Decode with Buffer.from(str, 'base64') and encode with buf.toString('base64') to round-trip bytes over a standard JSON API.",
+        "docPath": "https://nodejs.org/api/buffer.html",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/advanced/base64/encode",
+            "label": "Send bytes, get Base64 back",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"my-file\",\n  \"data\": \"SGVsbG8gV29ybGQ=\"\n}"
+              }
+            ],
+            "note": "\"data\" must be a Base64-encoded string. \"SGVsbG8gV29ybGQ=\" = \"Hello World\""
+          },
+          {
+            "method": "POST",
+            "path": "/advanced/base64/round-trip",
+            "label": "See how bytes are encoded in JSON",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"test\",\n  \"data\": \"SGVsbG8gV29ybGQ=\"\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "generic-types",
+        "number": "31",
+        "title": "Generic Response Types",
+        "description": "Wrap responses in a reusable generic shape (e.g. Paginated<T>) so every list endpoint returns the same envelope. TypeScript generics keep the items strongly typed.",
+        "docPath": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/generic-types/paginated",
+            "label": "Generic Paginated<Item> response",
+            "fields": [
+              {
+                "name": "page",
+                "in": "query",
+                "type": "text",
+                "placeholder": "1"
+              },
+              {
+                "name": "page_size",
+                "in": "query",
+                "type": "text",
+                "placeholder": "3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "app-structure",
+    "label": "App Structure",
+    "topics": [
+      {
+        "id": "advanced-middleware",
+        "number": "16",
+        "title": "Advanced Middleware",
+        "description": "Add middleware with app.use() for full request/response control. This app uses middleware to inject an X-Process-Time header into every response.",
+        "docPath": "https://expressjs.com/en/guide/using-middleware.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/middleware/info",
+            "label": "Middleware info (check X-Process-Time header)",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "sub-applications",
+        "number": "17",
+        "title": "Sub Applications - Mounts",
+        "description": "Mount a separate Express sub-app on a path prefix with app.use(prefix, subApp). Each sub-app has its own routes and middleware — useful for versioning (v1, v2) or plugin architecture.",
+        "docPath": "https://expressjs.com/en/api.html#app.use",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/sub-applications/info",
+            "label": "Sub-app info",
+            "fields": []
+          }
+        ],
+        "externalLinks": [
+          {
+            "label": "Sub-app root (mounted at /subapp)",
+            "href": "http://localhost:8001/subapp/"
+          }
+        ]
+      },
+      {
+        "id": "lifespan",
+        "number": "21",
+        "title": "Startup & Shutdown",
+        "description": "Run setup on startup and cleanup on shutdown: initialize resources before app.listen(), and release them on SIGINT / SIGTERM. This app records a startup log.",
+        "docPath": "https://nodejs.org/api/process.html#signal-events",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/lifespan/log",
+            "label": "View startup log",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "behind-proxy",
+        "number": "18",
+        "title": "Behind a Proxy",
+        "description": "When you sit behind a reverse proxy (nginx, Traefik), enable app.set('trust proxy', ...) so Express reads the real client IP and protocol from the X-Forwarded-* headers.",
+        "docPath": "https://expressjs.com/en/guide/behind-proxies.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/proxy/info",
+            "label": "Proxy & trust-proxy info",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "settings",
+        "number": "26",
+        "title": "Settings and Environment Variables",
+        "description": "Load configuration from process.env (optionally via dotenv). Read each setting with a sensible fallback default — great for 12-factor app config.",
+        "docPath": "https://nodejs.org/api/process.html#processenv",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/settings",
+            "label": "Current app settings",
+            "fields": []
+          }
+        ],
+        "note": "Override with env vars: ADV_APP_NAME=\"My App\" ADV_DEBUG=true node advanced/server.js"
+      }
+    ]
+  },
+  {
+    "id": "realtime",
+    "label": "Real-time",
+    "topics": [
+      {
+        "id": "websockets",
+        "number": "20",
+        "title": "WebSockets",
+        "description": "Accept WebSocket upgrades with the ws library. Handle the 'connection' and 'message' events and send messages back; clean up on 'close'.",
+        "docPath": "https://github.com/websockets/ws#readme",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/websockets/info",
+            "label": "WebSocket endpoint info",
+            "fields": []
+          },
+          {
+            "path": "/ws/echo",
+            "ws": true,
+            "label": "Echo WebSocket (type a message)"
+          },
+          {
+            "path": "/ws/counter",
+            "ws": true,
+            "sendMessages": false,
+            "label": "Counter WebSocket (auto-sends 0–9)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "openapi",
+    "label": "OpenAPI",
+    "topics": [
+      {
+        "id": "openapi-callbacks",
+        "number": "27",
+        "title": "OpenAPI Callbacks",
+        "description": "Document the HTTP requests your API makes back to the client (callbacks) in your OpenAPI spec so integrators know what to expect.",
+        "docPath": "https://swagger.io/docs/specification/callbacks/",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/callbacks/info",
+            "label": "Callbacks info",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "openapi-webhooks",
+        "number": "28",
+        "title": "OpenAPI Webhooks",
+        "description": "Declare the webhooks your API sends to client URLs under the \"webhooks\" key of the OpenAPI spec. Useful for documenting event-driven APIs.",
+        "docPath": "https://swagger.io/specification/",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/webhooks/info",
+            "label": "Webhooks info",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "generate-clients",
+        "number": "30",
+        "title": "Generating Clients",
+        "description": "Point an OpenAPI code generator at your spec to produce typed clients. Give each operation a unique operationId for clean method names.",
+        "docPath": "https://openapi-generator.tech/",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/advanced/generate-clients/info",
+            "label": "Client generation info",
+            "fields": []
+          }
+        ],
+        "externalLinks": [
+          {
+            "label": "OpenAPI Generator",
+            "href": "https://openapi-generator.tech/"
+          }
+        ]
+      }
+    ]
+  }
+]
