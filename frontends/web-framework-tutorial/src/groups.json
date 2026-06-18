@@ -1,0 +1,1371 @@
+[
+  {
+    "id": "basics",
+    "label": "Basics",
+    "topics": [
+      {
+        "id": "first-steps",
+        "number": "01",
+        "title": "First Steps",
+        "description": "Your first Express route handler. A GET request to the root path runs a callback that sends a response back to the client.",
+        "docPath": "https://expressjs.com/en/starter/hello-world.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/",
+            "label": "Hello World",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "path-parameters",
+        "number": "02",
+        "title": "Path Parameters",
+        "description": "Declare route parameters with :name in the path. Express exposes them on req.params as strings — you convert and validate them yourself. Restrict values to a fixed set for enum-style params.",
+        "docPath": "https://expressjs.com/en/guide/routing.html#route-parameters",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/items/{item_id}",
+            "label": "Integer path param",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "42",
+                "required": true
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/models/{model_name}",
+            "label": "Enum path param",
+            "fields": [
+              {
+                "name": "model_name",
+                "in": "path",
+                "type": "select",
+                "options": ["alexnet", "resnet", "lenet"],
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "query-parameters",
+        "number": "03",
+        "title": "Query Parameters",
+        "description": "Anything after ? in the URL becomes a query parameter, available on req.query. They can be optional (with defaults) or required. Express parses booleans as strings, so coerce \"true\"/\"false\" yourself.",
+        "docPath": "https://expressjs.com/en/api.html#req.query",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/items/",
+            "label": "List with skip & limit",
+            "fields": [
+              {
+                "name": "skip",
+                "in": "query",
+                "type": "number",
+                "placeholder": "0"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "number",
+                "placeholder": "10"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/items/{item_id}",
+            "label": "Optional query params",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "foo",
+                "required": true
+              },
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "search term"
+              },
+              {
+                "name": "short",
+                "in": "query",
+                "type": "select",
+                "options": ["false", "true"]
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/users/{user_id}/items/{item_id}",
+            "label": "Two path variables + optional query params",
+            "fields": [
+              {
+                "name": "user_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              },
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "foo",
+                "required": true
+              },
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "search term"
+              },
+              {
+                "name": "short",
+                "in": "query",
+                "type": "select",
+                "options": ["false", "true"]
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/needy_items/{item_id}",
+            "label": "Required query params + optional query params",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "foo",
+                "required": true
+              },
+              {
+                "name": "needy",
+                "in": "query",
+                "type": "text",
+                "placeholder": "search term",
+                "required": true
+              },
+              {
+                "name": "skip",
+                "in": "query",
+                "type": "number",
+                "placeholder": "0"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "number",
+                "placeholder": "10"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "request",
+    "label": "Request",
+    "topics": [
+      {
+        "id": "request-body",
+        "number": "04",
+        "title": "Request Body",
+        "description": "Send data from the client to the API in the request body. express.json() parses it onto req.body; a Zod schema validates it and gives you a typed, trusted object.",
+        "docPath": "https://zod.dev/?id=objects",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/items",
+            "label": "Create item (body)",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Widget\",\n  \"price\": 9.99,\n  \"tax\": 0.5,\n  \"tags\": [\"sale\"]\n}"
+              }
+            ]
+          },
+          {
+            "method": "PUT",
+            "path": "/items/{item_id}",
+            "label": "Update item (path + body)",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Widget\",\n  \"price\": 9.99\n}"
+              },
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "search term"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "query-validations",
+        "number": "05",
+        "title": "Query / String Validations",
+        "description": "Validate query parameters with a Zod schema: min/max length, regex patterns, and coercion. Reject invalid input with a 422 before your handler runs.",
+        "docPath": "https://zod.dev/?id=strings",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/items/limited/",
+            "label": "Validated query params",
+            "fields": [
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "min 3 chars, letters only"
+              },
+              {
+                "name": "q-list",
+                "in": "query",
+                "type": "text",
+                "placeholder": "item1,item2 (comma separated)"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/items/media/",
+            "label": "Validated query params",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "query",
+                "type": "text",
+                "placeholder": "isbn or imdb"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "path-validations",
+        "number": "06",
+        "title": "Path / Numeric Validations",
+        "description": "Validate route parameters yourself: coerce the string to a number and enforce numeric ranges (>=, <=). Return 422 when the value is out of bounds.",
+        "docPath": "https://zod.dev/?id=numbers",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/items/validated/{item_id}",
+            "label": "Validated path param (1–1000)",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "item id between 1 and 1000",
+                "required": true
+              },
+              {
+                "name": "item-query",
+                "in": "query",
+                "type": "text",
+                "placeholder": "optional"
+              },
+              {
+                "name": "size",
+                "in": "query",
+                "type": "number",
+                "placeholder": "size between 0 and 10.5"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "query-param-models",
+        "number": "07",
+        "title": "Query Parameter Schemas",
+        "description": "Group related query parameters into a single Zod object schema and validate req.query in one shot. Use .strict() to reject unknown query params.",
+        "docPath": "https://zod.dev/?id=objects",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/items/filter/model",
+            "label": "Filter object as query",
+            "fields": [
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "number",
+                "placeholder": "10 (max 100)"
+              },
+              {
+                "name": "offset",
+                "in": "query",
+                "type": "number",
+                "placeholder": "0"
+              },
+              {
+                "name": "order_by",
+                "in": "query",
+                "type": "text",
+                "placeholder": "created_at"
+              },
+              {
+                "name": "tags",
+                "in": "query",
+                "type": "text",
+                "placeholder": "tag1,tag2 (comma separated)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "body-multiple",
+        "number": "08",
+        "title": "Body: Multiple Parameters",
+        "description": "Mix route params, query params, and a structured JSON body containing several nested objects. Validate the whole body with one Zod schema.",
+        "docPath": "https://zod.dev/?id=objects",
+        "endpoints": [
+          {
+            "method": "PUT",
+            "path": "/items/allparams/{item_id}",
+            "label": "Multiple body objects",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              },
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "search term"
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"item\": {\"name\": \"Foo\", \"price\": 9.99},\n  \"user\": {\"username\": \"alex\"},\n  \"importance\": 5\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "body-fields",
+        "number": "09",
+        "title": "Body: Fields",
+        "description": "Add per-field validation and metadata with Zod (min, max, .describe()). Nest a schema under a key to mirror an embedded body object.",
+        "docPath": "https://zod.dev/?id=objects",
+        "endpoints": [
+          {
+            "method": "PUT",
+            "path": "/items/{item_id}/fields",
+            "label": "Item with Zod field validation",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"item\": {\n    \"name\": \"Widget\",\n    \"price\": 9.99,\n    \"description\": \"A nice widget\"\n  }\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "body-nested",
+        "number": "10",
+        "title": "Body: Nested Models",
+        "description": "Compose Zod object schemas inside other schemas for nested JSON. Arrays and sets map to z.array() / z.set(), and schemas can nest arbitrarily deep.",
+        "docPath": "https://zod.dev/?id=nesting-objects",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/items/nested",
+            "label": "Nested item with image",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Foo\",\n  \"price\": 9.99,\n  \"tags\": [\"cool\", \"new\"],\n  \"image\": {\"url\": \"http://example.com/img.png\", \"name\": \"hero\"}\n}"
+              }
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/offers/",
+            "label": "Offer with list of items",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Summer Sale\",\n  \"price\": 100,\n  \"items\": [\n    {\"name\": \"Widget\", \"price\": 9.99}\n  ]\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "request-example",
+        "number": "11",
+        "title": "Declare Request Example Data",
+        "description": "Keep example request payloads next to the Zod schema that validates them so consumers know the expected shape. Surface those examples in your API docs.",
+        "docPath": "https://zod.dev/?id=describe",
+        "endpoints": [
+          {
+            "method": "PUT",
+            "path": "/items/{item_id}/example",
+            "label": "Item with schema examples",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Foo\",\n  \"description\": \"A very nice Item\",\n  \"price\": 35.4,\n  \"tax\": 3.2\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "extra-data-types",
+        "number": "12",
+        "title": "Extra Data Types",
+        "description": "Beyond strings and numbers, JSON APIs carry UUIDs, ISO date-times, and durations — all as strings. Validate and coerce them with Zod (z.string().uuid(), z.coerce.date()).",
+        "docPath": "https://zod.dev/?id=dates",
+        "endpoints": [
+          {
+            "method": "PUT",
+            "path": "/items/{item_id}/extra-types",
+            "label": "UUID + datetime + timedelta",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "550e8400-e29b-41d4-a716-446655440000",
+                "required": true
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"start_datetime\": \"2024-01-01T00:00:00\",\n  \"end_datetime\": \"2024-01-02T12:00:00\",\n  \"process_after\": 3600\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cookie-parameters",
+        "number": "13",
+        "title": "Cookie Parameters",
+        "description": "Read cookies from the incoming request with cookie-parser, which parses the Cookie header into req.cookies.",
+        "docPath": "https://github.com/expressjs/cookie-parser#readme",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/cookies/",
+            "label": "Read cookie (set ads_id manually)",
+            "fields": [],
+            "note": "Set a cookie named \"ads_id\" in your browser DevTools to test. The endpoint reads it from the Cookie header."
+          }
+        ]
+      },
+      {
+        "id": "header-parameters",
+        "number": "14",
+        "title": "Header Parameters",
+        "description": "Read request headers from req.headers (keys are lowercased). Duplicate headers arrive as a comma-joined string or an array.",
+        "docPath": "https://expressjs.com/en/api.html#req.headers",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/headers/",
+            "label": "Read User-Agent & X-Token",
+            "fields": [
+              {
+                "name": "x-token",
+                "in": "header",
+                "type": "text",
+                "placeholder": "my-secret-token"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cookie-models",
+        "number": "15",
+        "title": "Cookie Parameter Schemas",
+        "description": "Group related cookies and validate them together with a Zod schema over req.cookies. Use .strict() to reject unknown cookies.",
+        "docPath": "https://github.com/expressjs/cookie-parser#readme",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/cookies/model",
+            "label": "Cookie object (requires browser cookies)",
+            "fields": [],
+            "note": "Set cookies \"session_id\", \"fatebook_tracker\", \"googler_tracker\" in DevTools to test."
+          }
+        ]
+      },
+      {
+        "id": "header-models",
+        "number": "16",
+        "title": "Header Parameter Schemas",
+        "description": "Group related headers and validate them together with a Zod schema over req.headers. Use .strict() to reject unknown headers.",
+        "docPath": "https://expressjs.com/en/api.html#req.headers",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/headers/model",
+            "label": "Header object",
+            "fields": [
+              {
+                "name": "save-data",
+                "in": "header",
+                "type": "select",
+                "options": ["false", "true"]
+              },
+              {
+                "name": "if_modified_since",
+                "in": "header",
+                "type": "text",
+                "placeholder": "Wed, 21 Oct 2024 07:28:00 GMT"
+              },
+              {
+                "name": "traceparent",
+                "in": "header",
+                "type": "text",
+                "placeholder": "version-traceid-parentid-traceflags"
+              },
+              {
+                "name": "x-tag",
+                "in": "header",
+                "type": "text",
+                "placeholder": "tag1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "response",
+    "label": "Response",
+    "topics": [
+      {
+        "id": "response-model",
+        "number": "17",
+        "title": "Response Shaping",
+        "description": "Shape what you send back: pick or validate fields with a Zod schema so internal data (like password) never leaks. Omit unset/default fields to keep responses lean.",
+        "docPath": "https://zod.dev/?id=pickomit",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/users/",
+            "label": "Create user (password stripped)",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"username\": \"alice\",\n  \"password\": \"secret123\",\n  \"email\": \"alice@example.com\",\n  \"full_name\": \"Alice\"\n}"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/items/{item_id}/response-model",
+            "label": "Item with unset fields omitted (1 or 2)",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "extra-models",
+        "number": "18",
+        "title": "Input vs Output Schemas",
+        "description": "Use different schemas for input vs output (e.g. UserIn has a password, UserOut doesn't). Use a Zod union for endpoints that can return more than one shape.",
+        "docPath": "https://zod.dev/?id=unions",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/products/",
+            "label": "Create product (gets ID assigned)",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Gadget\",\n  \"price\": 29.99\n}"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/products/{product_id}",
+            "label": "Get product (optionally with stock)",
+            "fields": [
+              {
+                "name": "product_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              },
+              {
+                "name": "include_stock",
+                "in": "query",
+                "type": "select",
+                "options": ["false", "true"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "response-status-code",
+        "number": "19",
+        "title": "Response Status Code",
+        "description": "Set the HTTP status code with res.status(). Use the well-known codes (201 Created, 204 No Content) so clients can react to the outcome.",
+        "docPath": "https://expressjs.com/en/api.html#res.status",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/status/created",
+            "label": "Returns 201 Created",
+            "fields": []
+          },
+          {
+            "method": "DELETE",
+            "path": "/status/delete/{item_id}",
+            "label": "Returns 204 No Content",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "forms-files",
+    "label": "Forms & Files",
+    "topics": [
+      {
+        "id": "form-data",
+        "number": "20",
+        "title": "Form Data",
+        "description": "Receive URL-encoded form fields with express.urlencoded(). They land on req.body just like JSON, encoded as application/x-www-form-urlencoded or multipart/form-data.",
+        "docPath": "https://expressjs.com/en/api.html#express.urlencoded",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/login/",
+            "label": "Login with form fields",
+            "fields": [
+              {
+                "name": "username",
+                "in": "form",
+                "type": "text",
+                "placeholder": "johndoe",
+                "required": true
+              },
+              {
+                "name": "password",
+                "in": "form",
+                "type": "text",
+                "placeholder": "secret",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "form-models",
+        "number": "21",
+        "title": "Form Schemas",
+        "description": "Group form fields into a Zod object and validate req.body. Use .strict() to reject unknown fields.",
+        "docPath": "https://zod.dev/?id=objects",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/login/model",
+            "label": "Login with form object",
+            "fields": [
+              {
+                "name": "username",
+                "in": "form",
+                "type": "text",
+                "placeholder": "johndoe",
+                "required": true
+              },
+              {
+                "name": "password",
+                "in": "form",
+                "type": "text",
+                "placeholder": "secret",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "request-files",
+        "number": "22",
+        "title": "Request Files",
+        "description": "Handle uploads with multer. memoryStorage() keeps small files in a Buffer; disk storage streams larger ones. req.file exposes metadata (originalname, mimetype, size).",
+        "docPath": "https://github.com/expressjs/multer#readme",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/files/upload",
+            "label": "Upload bytes (Buffer)",
+            "fields": [
+              {
+                "name": "file",
+                "in": "file",
+                "type": "file",
+                "required": true
+              }
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/files/uploadfile",
+            "label": "Upload file (multer)",
+            "fields": [
+              {
+                "name": "file",
+                "in": "file",
+                "type": "file",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "forms-and-files",
+        "number": "23",
+        "title": "Request Forms and Files",
+        "description": "Mix file uploads and text fields in a single multipart/form-data request. multer populates req.file / req.files and req.body together — multiple files and fields at once.",
+        "docPath": "https://github.com/expressjs/multer#readme",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/files/form-and-file",
+            "label": "File + form field",
+            "fields": [
+              {
+                "name": "file",
+                "in": "file",
+                "type": "file",
+                "required": true
+              },
+              {
+                "name": "fileb",
+                "in": "file",
+                "type": "file",
+                "required": true
+              },
+              {
+                "name": "token",
+                "in": "form",
+                "type": "text",
+                "placeholder": "my-token",
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "features",
+    "label": "Features",
+    "topics": [
+      {
+        "id": "handling-errors",
+        "number": "24",
+        "title": "Handling Errors",
+        "description": "Send error responses with res.status(code).json(). Throw inside a handler and let a 4-argument error-handling middleware translate it into a proper HTTP response with a JSON body.",
+        "docPath": "https://expressjs.com/en/guide/error-handling.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/errors/not-found/{item_id}",
+            "label": "404 if item not in db (try 1, 2, 3 or 99)",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/errors/bad-request",
+            "label": "400 if value < 0",
+            "fields": [
+              {
+                "name": "value",
+                "in": "query",
+                "type": "number",
+                "placeholder": "-1",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "path-operation-config",
+        "number": "25",
+        "title": "Route Configuration",
+        "description": "Organize routes with clear names, tags, and deprecation notes. Group related routes on an express.Router() and document them so consumers know what each one does.",
+        "docPath": "https://expressjs.com/en/guide/routing.html",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/items/configured",
+            "label": "Fully configured route",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Foo\",\n  \"price\": 9.99\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "json-encoder",
+        "number": "26",
+        "title": "JSON Serialization",
+        "description": "Convert objects holding Dates, Buffers, etc. into JSON-safe values before storing or sending. JSON.stringify (with a custom replacer or toJSON) handles the conversion.",
+        "docPath": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify",
+        "endpoints": [
+          {
+            "method": "PUT",
+            "path": "/encoder/items/{id}",
+            "label": "Store item (datetime encoded)",
+            "fields": [
+              {
+                "name": "id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "item1",
+                "required": true
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"title\": \"My Item\",\n  \"timestamp\": \"2024-01-15T10:30:00\"\n}"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/encoder/items/{id}",
+            "label": "Read stored item",
+            "fields": [
+              {
+                "name": "id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "item1",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "body-updates",
+        "number": "27",
+        "title": "Body Updates (PUT & PATCH)",
+        "description": "PUT replaces a record fully; PATCH updates partially. For PATCH, merge only the keys the client sent ({ ...existing, ...req.body }) so unset fields keep their current values.",
+        "docPath": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/patch/items/{item_id}",
+            "label": "Get stored item (try \"foo\" or \"bar\")",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "foo",
+                "required": true
+              }
+            ]
+          },
+          {
+            "method": "PATCH",
+            "path": "/patch/items/{item_id}",
+            "label": "Partial update (PATCH)",
+            "fields": [
+              {
+                "name": "item_id",
+                "in": "path",
+                "type": "text",
+                "placeholder": "foo",
+                "required": true
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"price\": 99.99\n}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dependencies",
+        "number": "28",
+        "title": "Shared Middleware",
+        "description": "Share logic across routes with Express middleware: common query parsing, DB handles, auth. Attach results to req and call next() so every handler downstream can reuse them.",
+        "docPath": "https://expressjs.com/en/guide/writing-middleware.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/deps/items/",
+            "label": "Items with common params",
+            "fields": [
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "search"
+              },
+              {
+                "name": "skip",
+                "in": "query",
+                "type": "number",
+                "placeholder": "0"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "number",
+                "placeholder": "10"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/deps/users/",
+            "label": "Users with same common params",
+            "fields": [
+              {
+                "name": "q",
+                "in": "query",
+                "type": "text",
+                "placeholder": "search"
+              },
+              {
+                "name": "skip",
+                "in": "query",
+                "type": "number",
+                "placeholder": "0"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "number",
+                "placeholder": "10"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "security",
+        "number": "29",
+        "title": "Security",
+        "description": "Token auth: POST credentials to /token to get a bearer token, then send it in the Authorization header. Middleware extracts and verifies the token on protected routes.",
+        "docPath": "https://github.com/auth0/node-jsonwebtoken#readme",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/security/token",
+            "label": "Get token (username: johndoe, password: secret)",
+            "fields": [
+              {
+                "name": "username",
+                "in": "form",
+                "type": "text",
+                "placeholder": "johndoe",
+                "required": true
+              },
+              {
+                "name": "password",
+                "in": "form",
+                "type": "text",
+                "placeholder": "secret",
+                "required": true
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/security/me",
+            "label": "Get current user (paste token above)",
+            "fields": [
+              {
+                "name": "authorization",
+                "in": "header",
+                "type": "text",
+                "placeholder": "Bearer johndoe"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "server",
+    "label": "Server",
+    "topics": [
+      {
+        "id": "middleware",
+        "number": "30",
+        "title": "Middleware",
+        "description": "Run custom logic before/after every request with app.use(). The X-Process-Time header added by this app's timing middleware appears on every response.",
+        "docPath": "https://expressjs.com/en/guide/using-middleware.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/middleware/echo",
+            "label": "Check X-Process-Time in response headers",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "cors",
+        "number": "31",
+        "title": "CORS",
+        "description": "Cross-Origin Resource Sharing controls which browser origins can call your API. Set the Access-Control-Allow-* headers (or use the cors middleware) with your allowed origins, methods, and headers.",
+        "docPath": "https://github.com/expressjs/cors#readme",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/cors/info",
+            "label": "CORS configuration info",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "sql-databases",
+        "number": "32",
+        "title": "SQL Databases",
+        "description": "Integrate a SQL database with better-sqlite3 — synchronous and zero-setup. Prepare statements, build full CRUD, and keep secret_name out of responses (the same pattern you'd use for passwords).",
+        "docPath": "https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/heroes/",
+            "label": "Create hero",
+            "fields": [
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"name\": \"Deadpond\",\n  \"secret_name\": \"Dive Wilson\",\n  \"age\": 35\n}"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/heroes/",
+            "label": "List heroes",
+            "fields": [
+              {
+                "name": "offset",
+                "in": "query",
+                "type": "number",
+                "placeholder": "0"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "number",
+                "placeholder": "10"
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/heroes/{hero_id}",
+            "label": "Get hero by ID",
+            "fields": [
+              {
+                "name": "hero_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              }
+            ]
+          },
+          {
+            "method": "PATCH",
+            "path": "/heroes/{hero_id}",
+            "label": "Update hero (partial)",
+            "fields": [
+              {
+                "name": "hero_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              },
+              {
+                "name": "body",
+                "in": "body",
+                "type": "json",
+                "placeholder": "{\n  \"age\": 30\n}"
+              }
+            ]
+          },
+          {
+            "method": "DELETE",
+            "path": "/heroes/{hero_id}",
+            "label": "Delete hero",
+            "fields": [
+              {
+                "name": "hero_id",
+                "in": "path",
+                "type": "number",
+                "placeholder": "1",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "background-tasks",
+        "number": "33",
+        "title": "Background Tasks",
+        "description": "Return the response immediately, then keep working: schedule follow-up work with setImmediate() / queueMicrotask() (or a real job queue) so the client isn't blocked.",
+        "docPath": "https://nodejs.org/api/timers.html#setimmediatecallback-args",
+        "endpoints": [
+          {
+            "method": "POST",
+            "path": "/background/send-notification/{email}",
+            "label": "Trigger background task",
+            "fields": [
+              {
+                "name": "email",
+                "in": "path",
+                "type": "text",
+                "placeholder": "user@example.com",
+                "required": true
+              }
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/background/task-log",
+            "label": "View task log",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "streaming",
+        "number": "34",
+        "title": "Streaming / SSE",
+        "description": "Stream data with res.write() / res.end(). Use text/event-stream for Server-Sent Events or application/x-ndjson for streaming JSON lines.",
+        "docPath": "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/stream/numbers",
+            "label": "SSE stream (numbers 0–9)",
+            "fields": [],
+            "streaming": true
+          },
+          {
+            "method": "GET",
+            "path": "/stream/json-lines",
+            "label": "JSON Lines stream",
+            "fields": [],
+            "streaming": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "reference",
+    "label": "Reference",
+    "topics": [
+      {
+        "id": "metadata-docs",
+        "number": "35",
+        "title": "API Metadata & Docs",
+        "description": "Describe your API — name, version, description — and publish docs. In Express you generate an OpenAPI spec (e.g. with swagger-jsdoc) and serve interactive docs with swagger-ui-express.",
+        "docPath": "https://github.com/scottie1984/swagger-ui-express#readme",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/metadata/info",
+            "label": "App metadata",
+            "fields": []
+          }
+        ],
+        "externalLinks": [
+          {
+            "label": "swagger-ui-express",
+            "href": "https://github.com/scottie1984/swagger-ui-express#readme"
+          },
+          {
+            "label": "OpenAPI Specification",
+            "href": "https://swagger.io/specification/"
+          }
+        ]
+      },
+      {
+        "id": "static-files",
+        "number": "36",
+        "title": "Static Files",
+        "description": "Serve static assets (CSS, JS, images) with express.static(). Mount it at a path (e.g. /static) to expose everything in that folder.",
+        "docPath": "https://expressjs.com/en/starter/static-files.html",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/static/info",
+            "label": "Static files usage info",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "testing",
+        "number": "37",
+        "title": "Testing",
+        "description": "Write HTTP tests with Jest and Supertest — fire requests at your app without binding a port and assert on the responses.",
+        "docPath": "https://github.com/ladjs/supertest#readme",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/testing/info",
+            "label": "Testing info",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "bigger-apps",
+        "number": "38",
+        "title": "Bigger Applications",
+        "description": "Split a growing app with express.Router(). Each router has its own prefix and middleware; mount them on the main app with app.use(prefix, router).",
+        "docPath": "https://expressjs.com/en/guide/routing.html#express-router",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/bigger-apps/info",
+            "label": "Bigger apps info",
+            "fields": []
+          }
+        ]
+      },
+      {
+        "id": "debugging",
+        "number": "39",
+        "title": "Debugging",
+        "description": "Use a watcher like nodemon (or node --watch) for auto-reload, and node --inspect to attach a debugger. Call app.listen() at the bottom of server.js to run it directly with node server.js.",
+        "docPath": "https://nodejs.org/en/learn/getting-started/debugging",
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/debugging/info",
+            "label": "Debugging info",
+            "fields": []
+          }
+        ]
+      }
+    ]
+  }
+]
