@@ -6,9 +6,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-COPY backends/bookmark_manager ./backends/bookmark_manager
+COPY backends/bookmark-manager ./backends/bookmark-manager
 
-WORKDIR /app/backends/bookmark_manager
+WORKDIR /app/backends/bookmark-manager
 RUN npx prisma generate --schema=prisma/schema.prisma
 
 CMD ["node", "app/server.js"]
