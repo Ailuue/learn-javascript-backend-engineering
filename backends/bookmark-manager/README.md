@@ -55,7 +55,7 @@ npm install
 npm run prisma:generate
 
 # Run the test suite (uses an isolated SQLite database)
-npx jest backends/bookmark_manager
+npx jest backends/bookmark-manager
 ```
 
 To run the full stack (API + Postgres + Redis + worker):
