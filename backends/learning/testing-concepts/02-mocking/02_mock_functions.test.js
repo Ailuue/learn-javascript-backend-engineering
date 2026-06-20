@@ -19,7 +19,7 @@
  *   fn.mock.results         array of { type, value }
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/02_mocking/02_mock_functions
+ *   npx jest backends/learning/testing-concepts/02-mocking/02_mock_functions
  */
 
 // ---------------------------------------------------------------------------
