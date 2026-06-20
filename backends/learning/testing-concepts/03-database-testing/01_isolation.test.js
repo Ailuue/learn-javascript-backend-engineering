@@ -16,7 +16,7 @@
  * transaction/savepoint API.
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/03_database_testing/01_isolation
+ *   npx jest backends/learning/testing-concepts/03-database-testing/01_isolation
  */
 
 const { createDb } = require("./db");
