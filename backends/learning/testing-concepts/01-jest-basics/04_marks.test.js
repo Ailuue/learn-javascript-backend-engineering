@@ -11,7 +11,7 @@
  *   custom marks    → filter by name with `jest -t "slow"` or group with describe
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/01_jest_basics/04_marks
+ *   npx jest backends/learning/testing-concepts/01-jest-basics/04_marks
  *   npx jest .../04_marks -t "slow"        # only tests whose name matches "slow"
  *   npx jest .../04_marks -t "^(?!.*slow)" # everything except "slow"
  */
