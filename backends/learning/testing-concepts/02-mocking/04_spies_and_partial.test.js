@@ -13,7 +13,7 @@
  *   - Partial module mocks (jest.requireActual) keep some real exports.
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/02_mocking/04_spies_and_partial
+ *   npx jest backends/learning/testing-concepts/02-mocking/04_spies_and_partial
  */
 
 const { EmailService } = require("./services");
