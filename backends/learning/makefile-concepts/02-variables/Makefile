@@ -88,7 +88,7 @@ greet:
 #   $<   — the FIRST prerequisite
 #   $^   — ALL prerequisites (space-separated, no duplicates)
 #   $?   — prerequisites NEWER than the target
-#   $*   — the stem matched by a pattern rule (see 03_dependencies)
+#   $*   — the stem matched by a pattern rule (see 03-dependencies)
 #
 # Directory and file components:
 #   $(@D) — directory part of $@    (e.g. "src")
