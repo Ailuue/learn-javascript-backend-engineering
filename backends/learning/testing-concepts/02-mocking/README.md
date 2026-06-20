@@ -24,5 +24,5 @@ Mock the module that the code under test **requires**. `checkout.js` does
 | `04_spies_and_partial.test.js` | `spyOn` interface safety, `mockRestore`, why signatures need TypeScript |
 
 ```bash
-npx jest backends/learning/testing-concepts/02_mocking
+npx jest backends/learning/testing-concepts/02-mocking
 ```
