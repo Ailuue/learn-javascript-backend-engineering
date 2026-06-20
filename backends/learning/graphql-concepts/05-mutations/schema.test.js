@@ -1,5 +1,5 @@
 /**
- * Tests for 05_mutations: CRUD and mutation-payload patterns.
+ * Tests for 05-mutations: CRUD and mutation-payload patterns.
  */
 
 const { graphqlSync } = require("graphql");
