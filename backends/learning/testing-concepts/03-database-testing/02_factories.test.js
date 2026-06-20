@@ -11,7 +11,7 @@
  *   const post  = makePost(alice, { published: true });
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/03_database_testing/02_factories
+ *   npx jest backends/learning/testing-concepts/03-database-testing/02_factories
  */
 
 const { createDb } = require("./db");
