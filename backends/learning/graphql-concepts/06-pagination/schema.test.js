@@ -1,5 +1,5 @@
 /**
- * Tests for 06_pagination: offset and cursor pagination.
+ * Tests for 06-pagination: offset and cursor pagination.
  */
 
 const { graphqlSync } = require("graphql");
