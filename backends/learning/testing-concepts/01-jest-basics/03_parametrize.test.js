@@ -9,7 +9,7 @@
  *   - Tagged template literal with named columns (most readable for many fields)
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/01_jest_basics/03_parametrize
+ *   npx jest backends/learning/testing-concepts/01-jest-basics/03_parametrize
  */
 
 // ---------------------------------------------------------------------------
