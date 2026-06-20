@@ -22,5 +22,5 @@ Key tools:
 > async driver (pg, mysql2, libsql).
 
 ```bash
-npx jest backends/learning/testing-concepts/04_async_testing
+npx jest backends/learning/testing-concepts/04-async-testing
 ```
