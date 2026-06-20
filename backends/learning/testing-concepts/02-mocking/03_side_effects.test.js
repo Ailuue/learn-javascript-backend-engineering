@@ -11,7 +11,7 @@
  * implementation (or mockResolvedValue) is used as the fallback.
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/02_mocking/03_side_effects
+ *   npx jest backends/learning/testing-concepts/02-mocking/03_side_effects
  */
 
 // ---------------------------------------------------------------------------
