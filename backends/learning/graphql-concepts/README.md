@@ -24,12 +24,12 @@ prefer that.)
 
 | # | Folder | Key concepts |
 |---|--------|-------------|
-| 1 | `01_schema_basics/` | SDL, scalars, queries, mutations, input types |
-| 2 | `02_relationships/` | field resolvers, "private" fields, the N+1 problem |
-| 3 | `03_dataloaders/`   | `dataloader`, batching, per-request context |
-| 4 | `04_types/`         | enums, custom scalars (Date), interfaces, unions, `__resolveType` |
-| 5 | `05_mutations/`     | CRUD, partial updates, mutation-payload (typed-error union) |
-| 6 | `06_pagination/`    | offset pagination, Relay cursor pagination, PageInfo |
+| 1 | `01-schema-basics/` | SDL, scalars, queries, mutations, input types |
+| 2 | `02-relationships/` | field resolvers, "private" fields, the N+1 problem |
+| 3 | `03-dataloaders/`   | `dataloader`, batching, per-request context |
+| 4 | `04-types/`         | enums, custom scalars (Date), interfaces, unions, `__resolveType` |
+| 5 | `05-mutations/`     | CRUD, partial updates, mutation-payload (typed-error union) |
+| 6 | `06-pagination/`    | offset pagination, Relay cursor pagination, PageInfo |
 
 Each section has `schema.js` (runnable schema), `notes.js` (concepts + queries),
 and `schema.test.js` (Jest tests). Sections 02/03/05/06 add a `data.js` store;
