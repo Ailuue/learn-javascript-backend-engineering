@@ -14,7 +14,7 @@
  *   beforeAll (top level)          → once for the whole file
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/01_jest_basics/02_setup_teardown
+ *   npx jest backends/learning/testing-concepts/01-jest-basics/02_setup_teardown
  */
 
 // ---------------------------------------------------------------------------
