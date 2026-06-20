@@ -12,7 +12,7 @@
  * place before checkout is required.
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/02_mocking/01_mock_module
+ *   npx jest backends/learning/testing-concepts/02-mocking/01_mock_module
  */
 
 jest.mock("./services");
