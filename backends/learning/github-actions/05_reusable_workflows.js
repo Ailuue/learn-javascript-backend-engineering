@@ -41,7 +41,7 @@ coverage) gets applied to one and forgotten in the others. Define it once instea
   jobs:
     test-a:
       uses: ./.github/workflows/reusable-test.yml         # local
-      with: { working_directory: backends/bookmark_manager }
+      with: { working_directory: backends/bookmark-manager }
     test-b:
       uses: my-org/shared/.github/workflows/node-test.yml@main   # cross-repo
       with: { node_version: "20" }
