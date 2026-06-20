@@ -1,5 +1,5 @@
 /**
- * Tests for 03_dataloaders.
+ * Tests for 03-dataloaders.
  *
  * Key goal: prove a DataLoader reduces N+1 to a single batch call. Compare the
  * call counts against section 02. These use the async `graphql()` because
