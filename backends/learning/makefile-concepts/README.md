@@ -9,17 +9,17 @@ npm scripts.
 
 | # | Folder | Concepts covered |
 |---|--------|-----------------|
-| 1 | `01_basics/` | Default target, `.PHONY`, tab requirement, `@` prefix, dry run |
-| 2 | `02_variables/` | `=` vs `:=` vs `?=` vs `+=`, automatic variables, CLI override |
-| 3 | `03_dependencies/` | File-based deps, target chains, DAG, incremental rebuilds |
-| 4 | `04_functions/` | `wildcard`, `patsubst`, `filter`, `shell`, `info`, `foreach`, `call` |
-| 5 | `05_real_world/` | Self-documenting `help`, `define`, conditionals, guards |
-| 6 | `06_npm_scripts/` | npm scripts — the JS-native task runner (Make alternative) |
+| 1 | `01-basics/` | Default target, `.PHONY`, tab requirement, `@` prefix, dry run |
+| 2 | `02-variables/` | `=` vs `:=` vs `?=` vs `+=`, automatic variables, CLI override |
+| 3 | `03-dependencies/` | File-based deps, target chains, DAG, incremental rebuilds |
+| 4 | `04-functions/` | `wildcard`, `patsubst`, `filter`, `shell`, `info`, `foreach`, `call` |
+| 5 | `05-real-world/` | Self-documenting `help`, `define`, conditionals, guards |
+| 6 | `06-npm-scripts/` | npm scripts — the JS-native task runner (Make alternative) |
 
 ## Run a section
 
 ```bash
-cd 01_basics
+cd 01-basics
 make           # default target
 make help      # where available
 make -n        # dry run — print commands without executing
