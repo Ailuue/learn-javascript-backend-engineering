@@ -12,17 +12,17 @@ engineer reaches for daily.
 
 | Section | What it teaches |
 |---|---|
-| `01_jest_basics/` | `test`/`describe`, matchers, `toThrow`, `toBeCloseTo`, setup/teardown, `test.each`, skip/`test.failing` |
-| `02_mocking/` | `jest.mock`, `jest.fn`, `mockResolvedValue`, `mockImplementation`, `jest.spyOn`, fake timers |
-| `03_database_testing/` | SAVEPOINT rollback isolation, factory helpers, better-sqlite3 |
-| `04_async_testing/` | async tests, `.resolves`/`.rejects`, async mocks, async DB with rollback |
+| `01-jest-basics/` | `test`/`describe`, matchers, `toThrow`, `toBeCloseTo`, setup/teardown, `test.each`, skip/`test.failing` |
+| `02-mocking/` | `jest.mock`, `jest.fn`, `mockResolvedValue`, `mockImplementation`, `jest.spyOn`, fake timers |
+| `03-database-testing/` | SAVEPOINT rollback isolation, factory helpers, better-sqlite3 |
+| `04-async-testing/` | async tests, `.resolves`/`.rejects`, async mocks, async DB with rollback |
 
 ## How to run
 
 ```bash
 npm test                                          # whole repo
 npx jest backends/learning/testing-concepts                   # this module
-npx jest backends/learning/testing-concepts/02_mocking        # one section
+npx jest backends/learning/testing-concepts/02-mocking        # one section
 npx jest backends/learning/testing-concepts -t "slow"         # filter by test name
 ```
 
