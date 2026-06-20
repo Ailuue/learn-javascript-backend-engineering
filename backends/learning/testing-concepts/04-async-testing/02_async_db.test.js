@@ -4,13 +4,13 @@
  * The async repository uses an awaited db interface. Testing it needs async
  * fixtures (async beforeEach/afterEach) and async test bodies.
  *
- * The isolation strategy is identical to 03_database_testing/: wrap each test in
+ * The isolation strategy is identical to 03-database-testing/: wrap each test in
  * a SAVEPOINT and roll back afterwards — only now the calls are awaited. Compare
- * this file with 03_database_testing/02_factories.test.js to see how the sync and
+ * this file with 03-database-testing/02_factories.test.js to see how the sync and
  * async patterns mirror each other.
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/04_async_testing/02_async_db
+ *   npx jest backends/learning/testing-concepts/04-async-testing/02_async_db
  */
 
 const { createAsyncDb } = require("./async_db");
