@@ -24,5 +24,5 @@ transaction/savepoint API.
 | `02_factories.test.js` | Building realistic data with overridable defaults; cascade delete |
 
 ```bash
-npx jest backends/learning/testing-concepts/03_database_testing
+npx jest backends/learning/testing-concepts/03-database-testing
 ```
