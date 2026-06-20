@@ -21,12 +21,12 @@ const { createHandler } = require("graphql-http/lib/use/express");
 const app = express();
 
 const SECTIONS = [
-  ["01", "01_schema_basics", "Schema Basics — types, queries, mutations"],
-  ["02", "02_relationships", "Relationships & N+1 — resolver methods, N+1 problem"],
-  ["03", "03_dataloaders", "DataLoaders — batching to solve N+1"],
-  ["04", "04_types", "Types — enums, unions, interfaces, custom scalars"],
-  ["05", "05_mutations", "Mutations — CRUD and typed error handling"],
-  ["06", "06_pagination", "Pagination — offset and cursor (Relay) patterns"],
+  ["01", "01-schema-basics", "Schema Basics — types, queries, mutations"],
+  ["02", "02-relationships", "Relationships & N+1 — resolver methods, N+1 problem"],
+  ["03", "03-dataloaders", "DataLoaders — batching to solve N+1"],
+  ["04", "04-types", "Types — enums, unions, interfaces, custom scalars"],
+  ["05", "05-mutations", "Mutations — CRUD and typed error handling"],
+  ["06", "06-pagination", "Pagination — offset and cursor (Relay) patterns"],
 ];
 
 // GraphiQL IDE served from CDN — points at the section's own /graphql endpoint.
@@ -45,7 +45,7 @@ const graphiql = (endpoint) => `<!DOCTYPE html>
 for (const [prefix, dir] of SECTIONS) {
   // eslint-disable-next-line import/no-dynamic-require, global-require
   const { schema } = require(`./${dir}/schema`);
-  const context = dir === "03_dataloaders" ? require(`./${dir}/schema`).makeContext : undefined;
+  const context = dir === "03-dataloaders" ? require(`./${dir}/schema`).makeContext : undefined;
   const endpoint = `/${prefix}/graphql`;
 
   // GET → GraphiQL IDE; POST → execute the query.
