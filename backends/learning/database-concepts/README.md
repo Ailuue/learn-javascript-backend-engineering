@@ -16,13 +16,13 @@ self-contained set of runnable demos.
 |---|---|---|
 | [async-postgres/](async-postgres/) | Async queries, pool config, exhaustion, concurrency | pg `Pool` |
 | [db-migration-demo/](db-migration-demo/) | Migrations: up/down, data migration, rollback | Knex + SQLite |
-| [full_text_search/](full_text_search/) | `tsvector`/`tsquery`, ranking, GIN indexes | pg |
+| [full-text-search/](full-text-search/) | `tsvector`/`tsquery`, ranking, GIN indexes | pg |
 | [indexes/](indexes/) | B-tree, Hash, GIN, GiST; `EXPLAIN ANALYZE` | pg |
-| [n_plus_one/](n_plus_one/) | The N+1 problem; batch IN-query vs JOIN | pg + query counter |
+| [n-plus-one/](n-plus-one/) | The N+1 problem; batch IN-query vs JOIN | pg + query counter |
 | [normalization/](normalization/) | 0NF → BCNF with worked schemas | pg |
 | [pgvector-demo/](pgvector-demo/) | Vector similarity search with local embeddings | pg + pgvector + Ollama |
 | [transactions/](transactions/) | ACID, isolation levels, savepoints, locking | pg |
-| [window_functions/](window_functions/) | ROW_NUMBER, RANK, LAG, running totals | pg |
+| [window-functions/](window-functions/) | ROW_NUMBER, RANK, LAG, running totals | pg |
 
 ## Running
 
