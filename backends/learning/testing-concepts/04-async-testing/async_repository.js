@@ -2,7 +2,7 @@
  * Async data access layer.
  *
  * Every operation is awaited — the interface mirrors the sync repository in
- * 03_database_testing/ so the two can be compared directly.
+ * 03-database-testing/ so the two can be compared directly.
  */
 
 async function createUser(db, username, email) {
