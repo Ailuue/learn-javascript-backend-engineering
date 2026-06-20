@@ -12,5 +12,5 @@ which produce the rich diff output on failure.
 | `04_marks.test.js` | `test.skip`, conditional skip, `test.failing` (xfail), name-based filtering |
 
 ```bash
-npx jest backends/learning/testing-concepts/01_jest_basics
+npx jest backends/learning/testing-concepts/01-jest-basics
 ```
