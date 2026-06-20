@@ -1,5 +1,5 @@
 /**
- * Tests for 02_relationships.
+ * Tests for 02-relationships.
  *
  * Key goal: prove the naive resolver causes N+1 query calls, and verify the
  * query structure is correct before fixing it in section 03.
