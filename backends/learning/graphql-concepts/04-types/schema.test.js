@@ -1,5 +1,5 @@
 /**
- * Tests for 04_types: enums, unions, interfaces, custom scalars.
+ * Tests for 04-types: enums, unions, interfaces, custom scalars.
  */
 
 const { graphqlSync } = require("graphql");
