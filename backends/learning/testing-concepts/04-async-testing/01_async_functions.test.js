@@ -13,7 +13,7 @@
  *     (a plain jest.fn already returns a thenable when you want it to)
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/04_async_testing/01_async_functions
+ *   npx jest backends/learning/testing-concepts/04-async-testing/01_async_functions
  */
 
 // ---------------------------------------------------------------------------
