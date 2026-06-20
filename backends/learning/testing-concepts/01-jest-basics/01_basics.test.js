@@ -10,7 +10,7 @@
  * Discovery rules (this repo): files named `*.test.js`. Group with `describe`.
  *
  * Run:
- *   npx jest backends/learning/testing-concepts/01_jest_basics/01_basics
+ *   npx jest backends/learning/testing-concepts/01-jest-basics/01_basics
  */
 
 // ---------------------------------------------------------------------------
