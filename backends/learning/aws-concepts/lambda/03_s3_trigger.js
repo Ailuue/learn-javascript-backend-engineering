@@ -17,7 +17,7 @@ const s3 = new S3Client(s3Config);
 const ROLE = "arn:aws:iam::000000000000:role/lambda-role";
 const BUCKET = "uploads-trigger-demo";
 const FN = "s3-processor";
-const handlerPath = path.join(__dirname, "functions", "s3_processor", "handler.js");
+const handlerPath = path.join(__dirname, "functions", "s3-processor", "handler.js");
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function main() {
