@@ -1,5 +1,5 @@
 /**
- * Tests for 01_schema_basics.
+ * Tests for 01-schema-basics.
  *
  * graphql-js schemas run without an HTTP server: `graphqlSync({ schema, source })`
  * (or async `graphql(...)`) executes a query in-process. The result has `.data`
