@@ -1,8 +1,8 @@
 {
-  "name": "fastapi-tutorial-js",
+  "name": "web-framework-tutorial",
   "version": "1.0.0",
   "private": true,
-  "description": "The FastAPI tutorial, translated to Express.",
+  "description": "A guided tour of building HTTP APIs with Express, Zod, and SQLite.",
   "scripts": {
     "start": "node tutorial/server.js",
     "start:advanced": "node advanced/server.js"
