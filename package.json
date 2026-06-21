@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "pretest": "npm run prisma:generate",
-    "prisma:generate": "prisma generate --schema=backends/bookmark_manager/prisma/schema.prisma && prisma generate --schema=backends/url-shortener/prisma/schema.prisma"
+    "prisma:generate": "prisma generate --schema=backends/bookmark-manager/prisma/schema.prisma && prisma generate --schema=backends/url-shortener/prisma/schema.prisma"
   },
   "devDependencies": {
     "ioredis-mock": "^8.13.1",
@@ -19,6 +19,7 @@
     "supertest": "^7.2.2"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.2",
     "@aws-sdk/client-dynamodb": "^3.1068.0",
     "@aws-sdk/client-lambda": "^3.1068.0",
     "@aws-sdk/client-s3": "^3.1068.0",
@@ -52,6 +53,7 @@
     "nodemailer": "^9.0.0",
     "nunjucks": "^3.2.4",
     "ollama": "^0.6.3",
+    "openai": "^6.43.0",
     "pg": "^8.21.0",
     "pgvector": "^0.3.0",
     "pino": "^10.3.1",
