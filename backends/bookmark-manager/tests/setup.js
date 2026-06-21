@@ -1,4 +1,4 @@
-// Shared test setup — required at the top of every bookmark_manager test file.
+// Shared test setup — required at the top of every bookmark-manager test file.
 // It MUST configure the environment before anything
 // imports the Prisma client, swaps in a fake Redis, and stubs the background
 // queue so no broker is needed.
