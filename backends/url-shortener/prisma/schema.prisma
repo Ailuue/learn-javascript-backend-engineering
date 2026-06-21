@@ -1,4 +1,4 @@
-// Prisma schema — the JS analog of the SQLAlchemy models in app/models.py.
+// Prisma schema — the database models for the url-shortener app.
 //
 // The Python original runs PostgreSQL in production and SQLite in tests. Prisma
 // pins the provider here, so we use SQLite to keep things self-contained. Swap
