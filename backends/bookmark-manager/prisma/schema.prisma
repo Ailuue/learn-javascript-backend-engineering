@@ -1,4 +1,4 @@
-// Prisma schema — the JS analog of the SQLModel models in app/models/.
+// Prisma schema — the database models for the bookmark-manager app.
 //
 // The Python original runs PostgreSQL in production and SQLite in tests. Prisma
 // pins the provider in this file, so we use SQLite (matching the test setup) to
