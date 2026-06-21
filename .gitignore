@@ -2,6 +2,9 @@ node_modules/
 coverage/
 *.log
 
+# Secrets — never commit real API keys
+.env
+
 # Generated Prisma clients
 **/app/generated/
 
